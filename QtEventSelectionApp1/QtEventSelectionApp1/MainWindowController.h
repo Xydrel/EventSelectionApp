@@ -1,7 +1,11 @@
 #pragma once
 #include <memory>
 
+#include <QList>
+#include <QString>
+
 class MainWindowView;
+class EventButtonModel;
 
 class MainWindowController
 {
@@ -16,6 +20,9 @@ public:
 	void Show();
 
 private:
+	std::shared_ptr<QList<QString>> GetButtonDates();
+	void GenerateButtonsForMenuBar(std::shared_ptr<QList<QString>> datesList);
+	void AddButtonToMenu(std::shared_ptr<EventButtonModel> data);
 
 private:
 	std::unique_ptr<MainWindowView> _mainWindow;
