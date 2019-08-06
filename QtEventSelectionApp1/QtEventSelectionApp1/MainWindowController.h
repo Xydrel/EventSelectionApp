@@ -22,10 +22,10 @@ public:
 private:
 	std::shared_ptr<QList<QString>> GetButtonDates();
 	void GenerateButtonsForMenuBar(std::shared_ptr<QList<QString>> datesList);
-	void AddButtonToMenu(std::shared_ptr<EventButtonModel> data);
+	void AddButtonToMenu(std::shared_ptr<EventButtonModel> model);
 
 private:
-	std::unique_ptr<MainWindowView> _mainWindow;
+	std::unique_ptr<MainWindowView> _mainWinView;
 
 };
 

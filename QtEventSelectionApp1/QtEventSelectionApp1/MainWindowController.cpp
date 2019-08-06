@@ -1,11 +1,12 @@
 #include "MainWindowController.h"
 #include "MainWindowView.h"
+#include "EventButtonModel.h"
 
 #include <QDateTime>
 
 MainWindowController::MainWindowController(MainWindowView& view)
 {
-	_mainWindow = std::make_unique<MainWindowView>(&view);
+	_mainWinView = std::make_unique<MainWindowView>(&view);
 
 	auto datesList = GetButtonDates();
 	GenerateButtonsForMenuBar(datesList);
@@ -13,7 +14,7 @@ MainWindowController::MainWindowController(MainWindowView& view)
 
 void MainWindowController::Show()
 {
-	_mainWindow->show();
+	_mainWinView->show();
 }
 
 std::shared_ptr<QList<QString>> MainWindowController::GetButtonDates()
@@ -41,10 +42,25 @@ std::shared_ptr<QList<QString>> MainWindowController::GetButtonDates()
 
 void MainWindowController::GenerateButtonsForMenuBar(std::shared_ptr<QList<QString>> datesList)
 {
-	//TODO: Implement me!
+	if (_mainWinView != nullptr)
+	{
+		for (auto i = 0; i < datesList->size(); i++)
+		{
+			// TODO: make actual request for the json object data to assign to this data for use in button generation
+			auto btnDataModel = std::make_shared<EventButtonModel>();
+			btnDataModel->SetObjectName(datesList->at(i));
+			btnDataModel->SetImagePath(datesList->at(i) + "/test/image/path");
+			btnDataModel->SetHeaderText(datesList->at(i) + " Header");
+			btnDataModel->SetDescriptionText(datesList->at(i) + " Description Text");
+			btnDataModel->SetLowerDescriptionText(datesList->at(i) + " Lower Description Text");
+			btnDataModel->SetThumbnailNameText(datesList->at(i) + " The Thumbnail");
+
+			AddButtonToMenu(btnDataModel);
+		}
+	}
 }
 
-void MainWindowController::AddButtonToMenu(std::shared_ptr<EventButtonModel> data)
+void MainWindowController::AddButtonToMenu(std::shared_ptr<EventButtonModel> model)
 {
 	//TODO: Implement me!
 }
