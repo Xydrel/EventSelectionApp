@@ -113,6 +113,7 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EventButtonModel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindowController.cpp" />
     <ClCompile Include="MainWindowView.cpp" />
@@ -127,6 +128,7 @@
     <QtRcc Include="MainWindowView.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EventButtonModel.h" />
     <ClInclude Include="MainWindowController.h" />
   </ItemGroup>
   <ItemGroup>
