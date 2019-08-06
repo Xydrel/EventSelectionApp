@@ -59,6 +59,9 @@
     <ClCompile Include="EventButtonView.cpp">
       <Filter>Views</Filter>
     </ClCompile>
+    <ClCompile Include="BackgroundImageModel.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindowView.ui">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="EventButtonModel.h">
       <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundImageModel.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
