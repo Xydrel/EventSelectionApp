@@ -11,10 +11,12 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -22,25 +24,43 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindowViewClass
 {
 public:
+    QWidget *centralWidget;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *eventBarHLayout;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
-    QWidget *centralWidget;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindowViewClass)
     {
         if (MainWindowViewClass->objectName().isEmpty())
             MainWindowViewClass->setObjectName(QString::fromUtf8("MainWindowViewClass"));
-        MainWindowViewClass->resize(600, 400);
+        MainWindowViewClass->resize(1920, 1080);
+        centralWidget = new QWidget(MainWindowViewClass);
+        centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        verticalLayoutWidget = new QWidget(centralWidget);
+        verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
+        verticalLayoutWidget->setGeometry(QRect(0, 170, 1921, 261));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        eventBarHLayout = new QHBoxLayout();
+        eventBarHLayout->setSpacing(6);
+        eventBarHLayout->setObjectName(QString::fromUtf8("eventBarHLayout"));
+
+        verticalLayout->addLayout(eventBarHLayout);
+
+        MainWindowViewClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowViewClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 1920, 29));
         MainWindowViewClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowViewClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
-        MainWindowViewClass->addToolBar(mainToolBar);
-        centralWidget = new QWidget(MainWindowViewClass);
-        centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        MainWindowViewClass->setCentralWidget(centralWidget);
+        MainWindowViewClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindowViewClass);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindowViewClass->setStatusBar(statusBar);
@@ -52,7 +72,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindowViewClass)
     {
-        MainWindowViewClass->setWindowTitle(QCoreApplication::translate("MainWindowViewClass", "MainWindowView", nullptr));
+        MainWindowViewClass->setWindowTitle(QCoreApplication::translate("MainWindowViewClass", "EventSelectionApp", nullptr));
     } // retranslateUi
 
 };
