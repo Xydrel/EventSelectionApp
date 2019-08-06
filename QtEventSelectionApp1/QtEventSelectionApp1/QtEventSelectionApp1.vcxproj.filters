@@ -60,7 +60,7 @@
       <Filter>Views</Filter>
     </ClCompile>
     <ClCompile Include="BackgroundImageModel.cpp">
-      <Filter>Application</Filter>
+      <Filter>Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +84,7 @@
       <Filter>Models</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundImageModel.h">
-      <Filter>Generated Files</Filter>
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
