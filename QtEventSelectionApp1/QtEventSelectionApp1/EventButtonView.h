@@ -17,7 +17,7 @@ public:
 	EventButtonView(const EventButtonView&) = delete;
 	EventButtonView& operator=(const EventButtonView&) = delete;
 
-	void SetData(const std::shared_ptr<EventButtonModel> data);
+	void SetModel(const std::shared_ptr<EventButtonModel> model);
 	void Populate();
 
 public slots:
@@ -41,7 +41,7 @@ private:
 private:
 	Ui::EventButtonView _ui;
 	QPalette _palette;
-	std::shared_ptr<EventButtonModel> _data;
+	std::shared_ptr<EventButtonModel> _model;
 
 	const int _baseButtonWidth = 120;
 	const int _baseButtonHeight = 100;

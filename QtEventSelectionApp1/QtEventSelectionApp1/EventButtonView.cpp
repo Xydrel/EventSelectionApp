@@ -22,9 +22,9 @@ void EventButtonView::OnButtonClicked()
 	//TODO: Implement as extra credit if time permits
 }
 
-void EventButtonView::SetData(const std::shared_ptr<EventButtonModel> data)
+void EventButtonView::SetModel(const std::shared_ptr<EventButtonModel> model)
 {
-	_data = data;
+	_model = model;
 }
 
 void EventButtonView::Populate()
@@ -33,26 +33,26 @@ void EventButtonView::Populate()
 
 	_ui.frame->setStyleSheet("QFrame {background-position: bottom center}");
 
-	_ui.titleHeader->setText(_data->GetHeader());
+	_ui.titleHeader->setText(_model->GetHeader());
 	_ui.titleHeader->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	_ui.titleHeader->setStyleSheet("QLabel {color:rgb(211,211,211); font-weight:bold}");
 
-	_ui.description->setText(_data->GetDescription());
+	_ui.description->setText(_model->GetDescription());
 	_ui.description->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	_ui.description->setStyleSheet("QLabel {color:rgb(169,169,169)}");
 
-	_ui.lowerDescription->setText(_data->GetLowerDescription());
+	_ui.lowerDescription->setText(_model->GetLowerDescription());
 	_ui.lowerDescription->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	_ui.lowerDescription->setStyleSheet("QLabel {color:rgb(128,128,128); font-weight:italic}");
 
-	_ui.thumbnailName->setText(_data->GetThumbnailName());
+	_ui.thumbnailName->setText(_model->GetThumbnailName());
 	_ui.thumbnailName->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	_ui.thumbnailName->setStyleSheet("QLabel {color:rgb(128,128,128); font-weight:italic}");
 
 	_ui.pushButton->setText(QString("Test text"));
 	_ui.pushButton->setStyleSheet("QPushButton {border-color:rgb(105,105,105)}");
 
-	loadButtonImage(_data->GetImagePath());
+	loadButtonImage(_model->GetImagePath());
 }
 
 bool EventButtonView::eventFilter(QObject* watched, QEvent* event)
