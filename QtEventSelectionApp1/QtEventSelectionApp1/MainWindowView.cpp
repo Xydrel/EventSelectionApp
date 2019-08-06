@@ -3,5 +3,5 @@
 MainWindowView::MainWindowView(QWidget *parent)
 	: QMainWindow(parent)
 {
-	ui.setupUi(this);
+	_ui.setupUi(this);
 }

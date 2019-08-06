@@ -33,6 +33,15 @@
     <Filter Include="Models">
       <UniqueIdentifier>{02a4c13f-0631-487c-b051-a4f99ed2e174}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{06cd646b-1bc2-4dbe-8f7a-98977da20e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Images">
+      <UniqueIdentifier>{d062a302-0535-4302-a1ea-65ef7944866b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataAccess">
+      <UniqueIdentifier>{2fa5168b-b4d7-490a-bbcd-df354dc4fb48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -64,5 +73,10 @@
     <QtMoc Include="MainWindowView.h">
       <Filter>Views</Filter>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Images\AppBackground.jpg">
+      <Filter>Assets\Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

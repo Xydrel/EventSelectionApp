@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+
 #include "ui_MainWindowView.h"
 
 class MainWindowView : public QMainWindow
@@ -11,5 +12,5 @@ public:
 	MainWindowView(QWidget *parent = Q_NULLPTR);
 
 private:
-	Ui::MainWindowViewClass ui;
+	Ui::MainWindowViewClass _ui;
 };
