@@ -56,9 +56,15 @@
     <ClCompile Include="EventButtonModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="EventButtonView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindowView.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="EventButtonView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -77,6 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindowView.h">
+      <Filter>Views</Filter>
+    </QtMoc>
+    <QtMoc Include="EventButtonView.h">
       <Filter>Views</Filter>
     </QtMoc>
   </ItemGroup>

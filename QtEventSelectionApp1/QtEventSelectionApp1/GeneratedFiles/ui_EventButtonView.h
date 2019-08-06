@@ -36,11 +36,6 @@ public:
         if (EventButtonView->objectName().isEmpty())
             EventButtonView->setObjectName(QString::fromUtf8("EventButtonView"));
         EventButtonView->resize(318, 464);
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(EventButtonView->sizePolicy().hasHeightForWidth());
-        EventButtonView->setSizePolicy(sizePolicy);
         verticalLayoutWidget = new QWidget(EventButtonView);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(-1, -1, 241, 401));
@@ -52,11 +47,11 @@ public:
         titleHeader = new QLabel(verticalLayoutWidget);
         titleHeader->setObjectName(QString::fromUtf8("titleHeader"));
         titleHeader->setEnabled(true);
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(titleHeader->sizePolicy().hasHeightForWidth());
-        titleHeader->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(titleHeader->sizePolicy().hasHeightForWidth());
+        titleHeader->setSizePolicy(sizePolicy);
         QFont font;
         font.setPointSize(8);
         font.setBold(false);
@@ -68,38 +63,41 @@ public:
 
         frame = new QFrame(verticalLayoutWidget);
         frame->setObjectName(QString::fromUtf8("frame"));
-        sizePolicy.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
-        frame->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
+        frame->setSizePolicy(sizePolicy1);
         frame->setSizeIncrement(QSize(0, 0));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
         pushButton = new QPushButton(frame);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(40, 60, 161, 131));
-        sizePolicy.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        pushButton->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy1);
         pushButton->setBaseSize(QSize(0, 0));
 
         verticalLayout->addWidget(frame);
 
         description = new QLabel(verticalLayoutWidget);
         description->setObjectName(QString::fromUtf8("description"));
-        sizePolicy1.setHeightForWidth(description->sizePolicy().hasHeightForWidth());
-        description->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(description->sizePolicy().hasHeightForWidth());
+        description->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(description);
 
         lowerDescription = new QLabel(verticalLayoutWidget);
         lowerDescription->setObjectName(QString::fromUtf8("lowerDescription"));
-        sizePolicy1.setHeightForWidth(lowerDescription->sizePolicy().hasHeightForWidth());
-        lowerDescription->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(lowerDescription->sizePolicy().hasHeightForWidth());
+        lowerDescription->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(lowerDescription);
 
         thumbnailName = new QLabel(verticalLayoutWidget);
         thumbnailName->setObjectName(QString::fromUtf8("thumbnailName"));
-        sizePolicy1.setHeightForWidth(thumbnailName->sizePolicy().hasHeightForWidth());
-        thumbnailName->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(thumbnailName->sizePolicy().hasHeightForWidth());
+        thumbnailName->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(thumbnailName);
 
