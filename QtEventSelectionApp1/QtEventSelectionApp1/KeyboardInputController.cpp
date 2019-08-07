@@ -39,12 +39,12 @@ bool KeyboardInputController::eventFilter(QObject* watched, QEvent* event)
 				return false;
 			}
 			//todo: end investigate further
-			case Qt::Key_A:
+			case Qt::Key_S:
 			{
 				sendLeftKeyPressedSignal();
 				return false;
 			}
-			case Qt::Key_D:
+			case Qt::Key_F:
 			{
 				sendRightKeyPressedSignal();
 				return false;
