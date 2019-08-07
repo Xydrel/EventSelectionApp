@@ -25,6 +25,10 @@ public:
 	void PopulateWindowElements();
 	void AddNewButtonToMenu(std::shared_ptr<EventButtonModel> model);
 
+public slots:
+	// Handlers for calls coming from the KeyboardInputController
+	void OnMoveSelectionLeft();
+	void OnMoveSelectionRight();
 
 private:
 	void loadBackgroundImage();

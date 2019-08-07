@@ -6,9 +6,9 @@
 
 MainWindowController::MainWindowController(MainWindowView& view)
 {
-	_mainWinView = std::make_unique<MainWindowView>(&view);
+	_mainWinView = std::make_shared<MainWindowView>(&view);
 	_netAccessMngr = std::make_shared<QNetworkAccessManager>();
-	_keyboardInputCntrlr = std::make_unique<KeyboardInputController>(&view);
+	_keyboardInputCntrlr = std::make_unique<KeyboardInputController>(&view, _mainWinView);
 
 	_mainWinView->installEventFilter(_keyboardInputCntrlr.get());
 

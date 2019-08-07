@@ -37,6 +37,16 @@ void MainWindowView::AddNewButtonToMenu(std::shared_ptr<EventButtonModel> model)
 	_titleButtonList.push_back(eventButton);
 }
 
+void MainWindowView::OnMoveSelectionLeft()
+{
+
+}
+
+void MainWindowView::OnMoveSelectionRight()
+{
+
+}
+
 void MainWindowView::loadBackgroundImage()
 {
 	QPixmap pixmap(_bkgrndImage->GetPath());
