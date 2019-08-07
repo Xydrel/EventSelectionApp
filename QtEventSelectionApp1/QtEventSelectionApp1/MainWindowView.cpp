@@ -4,7 +4,8 @@
 #include <QSize.h>
 #include <QPalette.h>
 #include <QPixmap.h>
-
+#include <QTime>
+#include <QtMath>
 
 MainWindowView::MainWindowView(QWidget *parent)
 	: QMainWindow(parent)
@@ -14,6 +15,16 @@ MainWindowView::MainWindowView(QWidget *parent)
 	_bkgrndImage = std::make_unique<BackgroundImageModel>(this->size());
 
 	PopulateWindowElements();
+}
+
+MainWindowView::~MainWindowView()
+{
+	this->releaseMouse();
+	if (_parent != nullptr)
+	{
+		delete _parent;
+		_parent = nullptr;
+	}
 }
 
 void MainWindowView::PopulateWindowElements()
@@ -47,26 +58,46 @@ void MainWindowView::OnButtonGenerationCompleted()
 	}
 
 	_currentButtonIndex = buttonStartIndex;
-	QEvent event = QEvent(QEvent::Type::Enter);
+	QEvent event = QEvent(QEvent::Type::FocusIn);
 	QApplication::sendEvent(_eventButtonsList[buttonStartIndex]->GetVerticalLayoutWidget(), &event);
 }
 
 void MainWindowView::OnMoveSelectionLeft()
 {
-	//todo: following
-	// if last left button selected
-		// do nothing
-	// else
-		// move the selection to the left
+	QTime currentTime = QTime::currentTime();
+	_elapsedTime = currentTime.msecsSinceStartOfDay() - _elapsedTime;
+	if (_elapsedTime > _msDelayWait)
+	{
+		if (_currentButtonIndex > 0)
+		{
+			QEvent leaveEvent = QEvent(QEvent::Type::FocusOut);
+			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &leaveEvent);
+			_currentButtonIndex--;
+			QEvent enterEvent = QEvent(QEvent::Type::FocusIn);
+			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &enterEvent);
+		}
+		_elapsedTime = 1;
+
+	}
 }
 
 void MainWindowView::OnMoveSelectionRight()
-{
-	//todo: following
-	// if last right button selected
-		// do nothing
-	// else
-		// move the selection to the right
+{	
+	QTime currentTime = QTime::currentTime();
+	_elapsedTime = currentTime.msecsSinceStartOfDay() - _elapsedTime;
+	if (_elapsedTime > _msDelayWait)
+	{
+		if (_currentButtonIndex < _eventButtonsList.size() - 1)
+		{
+			QEvent leaveEvent = QEvent(QEvent::Type::FocusOut);
+			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &leaveEvent);
+			_currentButtonIndex++;
+			QEvent enterEvent = QEvent(QEvent::Type::FocusIn);
+			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &enterEvent);
+		}
+		_elapsedTime = 1;
+
+	}
 }
 
 void MainWindowView::loadBackgroundImage()

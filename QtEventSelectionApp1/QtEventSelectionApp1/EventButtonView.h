@@ -19,7 +19,6 @@ public:
 
 	void SetModel(const std::shared_ptr<EventButtonModel> model);
 	void Populate();
-
 	QObject* GetVerticalLayoutWidget() const;
 
 public slots:
@@ -33,10 +32,8 @@ private:
 	void setButtonFrameDimensions();
 	void setButtonDimensions();
 	void bindButtonConnections();
-
 	void loadButtonImage(const QString& imagePath);
 	void toggleTextVisibility(bool enable);
-
 	void onFocusResizeButton();
 	void onLostFocusResizeButton();
 
@@ -45,9 +42,9 @@ private:
 	QPalette _palette;
 	std::shared_ptr<EventButtonModel> _model;
 
-	const int _baseButtonWidth = 120;
-	const int _baseButtonHeight = 100;
-	const int _buttonFrameWidth = 255;
-	const int _buttonFrameHeight = 255;
-	const float _hoveredScaler = 1.5;
+	const qint32 _baseButtonWidth = 120;
+	const qint32 _baseButtonHeight = 100;
+	const qint32 _buttonFrameWidth = 255;
+	const qint32 _buttonFrameHeight = 255;
+	const float_t _hoveredScaler = 1.5;
 };

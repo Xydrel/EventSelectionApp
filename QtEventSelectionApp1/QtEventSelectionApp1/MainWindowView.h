@@ -17,7 +17,7 @@ class MainWindowView : public QMainWindow
 
 public:
 	MainWindowView(QWidget* parent = Q_NULLPTR);
-	~MainWindowView() = default;
+	~MainWindowView();
 
 	MainWindowView(const MainWindowView&) = delete;
 	MainWindowView& operator=(const MainWindowView&) = delete;
@@ -42,4 +42,7 @@ private:
 	QPalette _palette;
 	QList<std::shared_ptr<EventButtonView>> _eventButtonsList;
 	qint32 _currentButtonIndex;
+
+	qint32 _elapsedTime = 0;
+	const qint64 _msDelayWait = 2000;
 };

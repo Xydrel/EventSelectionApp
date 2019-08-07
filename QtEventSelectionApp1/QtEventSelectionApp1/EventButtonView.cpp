@@ -64,12 +64,12 @@ bool EventButtonView::eventFilter(QObject* watched, QEvent* event)
 {
 	if (watched == _ui.verticalLayoutWidget)
 	{
-		if (event->type() == QEvent::FocusIn || event->type() == QEvent::Enter)
+		if (event->type() == QEvent::FocusIn)
 		{
 			onFocusResizeButton();
 		}
 
-		if (event->type() == QEvent::FocusOut || event->type() == QEvent::Leave)
+		if (event->type() == QEvent::FocusOut)
 		{
 			onLostFocusResizeButton();
 		}
