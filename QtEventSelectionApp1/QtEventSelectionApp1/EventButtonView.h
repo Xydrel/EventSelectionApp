@@ -20,7 +20,7 @@ public:
 	void SetModel(const std::shared_ptr<EventButtonModel> model);
 	void Populate();
 
-	const QObject* GetVerticalLayoutWidget() const;
+	QObject* GetVerticalLayoutWidget() const;
 
 public slots:
 	void OnButtonClicked();

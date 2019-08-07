@@ -55,12 +55,12 @@ void EventButtonView::Populate()
 	loadButtonImage(_model->GetImagePath());
 }
 
-const QObject* EventButtonView::GetVerticalLayoutWidget() const
+QObject* EventButtonView::GetVerticalLayoutWidget() const
 {
 	return _ui.verticalLayoutWidget;
 }
 
-bool EventButtonView::eventFilter(const QObject* watched, const QEvent* event)
+bool EventButtonView::eventFilter(QObject* watched, QEvent* event)
 {
 	if (watched == _ui.verticalLayoutWidget)
 	{
