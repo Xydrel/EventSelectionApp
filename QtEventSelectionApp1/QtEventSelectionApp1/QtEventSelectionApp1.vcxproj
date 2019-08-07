@@ -117,6 +117,7 @@
     <ClCompile Include="EventButtonModel.cpp" />
     <ClCompile Include="EventButtonView.cpp" />
     <ClCompile Include="JsonRequestModel.cpp" />
+    <ClCompile Include="KeyboardInputController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindowController.cpp" />
     <ClCompile Include="MainWindowView.cpp" />
@@ -139,6 +140,10 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGamepad;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtNetworkAuth;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWinExtras</IncludePath>
     </QtMoc>
     <QtMoc Include="EventButtonView.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGamepad;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtNetworkAuth;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWinExtras</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGamepad;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtNetworkAuth;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWinExtras</IncludePath>
+    </QtMoc>
+    <QtMoc Include="KeyboardInputController.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGamepad;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtNetworkAuth;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWinExtras</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGamepad;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtNetworkAuth;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtWinExtras</IncludePath>
     </QtMoc>

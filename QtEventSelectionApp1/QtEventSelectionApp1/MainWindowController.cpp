@@ -8,6 +8,9 @@ MainWindowController::MainWindowController(MainWindowView& view)
 {
 	_mainWinView = std::make_unique<MainWindowView>(&view);
 	_netAccessMngr = std::make_shared<QNetworkAccessManager>();
+	_keyboardInputCntrlr = std::make_unique<KeyboardInputController>(&view);
+
+	_mainWinView->installEventFilter(_keyboardInputCntrlr.get());
 
 	auto datesList = GetButtonDatesList();
 	GenerateButtonModelsFromDates(datesList);

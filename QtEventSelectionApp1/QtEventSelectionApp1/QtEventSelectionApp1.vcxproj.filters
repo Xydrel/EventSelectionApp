@@ -65,6 +65,9 @@
     <ClCompile Include="JsonRequestModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="KeyboardInputController.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindowView.ui">
@@ -99,6 +102,9 @@
     </QtMoc>
     <QtMoc Include="JsonRequestModel.h">
       <Filter>Models</Filter>
+    </QtMoc>
+    <QtMoc Include="KeyboardInputController.h">
+      <Filter>Controllers</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
