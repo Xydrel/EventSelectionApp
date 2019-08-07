@@ -3,7 +3,7 @@
 
 #include <QApplication>
 
-KeyboardInputController::KeyboardInputController(QObject* parent, std::shared_ptr<MainWindowView> mainWin)
+KeyboardInputController::KeyboardInputController(std::shared_ptr<MainWindowView> mainWin, QObject* parent)
 	: QObject(parent)
 {
 	_mainWinView = mainWin;
@@ -25,12 +25,12 @@ bool KeyboardInputController::eventFilter(QObject* watched, QEvent* event)
 			}
 			case Qt::Key_Left:
 			{
-				onLeftKeyPressed();
+				sendLeftKeyPressedSignal();
 				return true;
 			}			
 			case Qt::Key_Right:
 			{
-				onRightKeyPressed();
+				sendRightKeyPressedSignal();
 				return true;
 			}
 			default:
@@ -42,8 +42,8 @@ bool KeyboardInputController::eventFilter(QObject* watched, QEvent* event)
 
 void KeyboardInputController::bindKeyboardInputSignalCallbacks()
 {
-	QObject::connect(this, SIGNAL(onLeftKeyPressed()), _mainWinView.get(), SLOT(OnMoveSelectionLeft()));
-	QObject::connect(this, SIGNAL(onRightKeyPressed()), _mainWinView.get(), SLOT(OnMoveSelectionRight()));
+	QObject::connect(this, SIGNAL(sendLeftKeyPressedSignal()), _mainWinView.get(), SLOT(OnMoveSelectionLeft()));
+	QObject::connect(this, SIGNAL(sendRightKeyPressedSignal()), _mainWinView.get(), SLOT(OnMoveSelectionRight()));
 }
 
 void KeyboardInputController::onEscapeKeyPressed()

@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	MainWindowView w;
+	auto w = std::make_shared<MainWindowView>();
 	auto mainWindowContoler = std::make_unique<MainWindowController>(w);
 	mainWindowContoler->Show();
 

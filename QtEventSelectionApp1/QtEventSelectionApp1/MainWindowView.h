@@ -23,10 +23,11 @@ public:
 	MainWindowView& operator=(const MainWindowView&) = delete;
 
 	void PopulateWindowElements();
-	void AddNewButtonToMenu(std::shared_ptr<EventButtonModel> model);
+	void AddNewButtonToMenu(const std::shared_ptr<EventButtonModel> model);
 
 public slots:
 	// Handlers for calls coming from the KeyboardInputController
+	void OnButtonGenerationCompleted();
 	void OnMoveSelectionLeft();
 	void OnMoveSelectionRight();
 
@@ -39,5 +40,6 @@ private:
 	QWidget* _parent;
 	std::unique_ptr<BackgroundImageModel> _bkgrndImage;
 	QPalette _palette;
-	QList<std::shared_ptr<EventButtonView>> _titleButtonList;
+	QList<std::shared_ptr<EventButtonView>> _eventButtonsList;
+	qint32 _currentButtonIndex;
 };

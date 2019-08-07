@@ -55,7 +55,12 @@ void EventButtonView::Populate()
 	loadButtonImage(_model->GetImagePath());
 }
 
-bool EventButtonView::eventFilter(QObject* watched, QEvent* event)
+const QObject* EventButtonView::GetVerticalLayoutWidget() const
+{
+	return _ui.verticalLayoutWidget;
+}
+
+bool EventButtonView::eventFilter(const QObject* watched, const QEvent* event)
 {
 	if (watched == _ui.verticalLayoutWidget)
 	{
@@ -91,6 +96,7 @@ void EventButtonView::setButtonDimensions()
 
 void EventButtonView::bindButtonConnections()
 {
+	//todo: migrate to the keyboardinputcontroller so all input handling is there
 	QObject::connect(_ui.pushButton, SIGNAL(clicked()), this, SLOT(OnButtonClicked()));
 }
 

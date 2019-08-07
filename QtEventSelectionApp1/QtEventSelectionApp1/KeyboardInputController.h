@@ -11,12 +11,11 @@ class KeyboardInputController : public QObject
 	Q_OBJECT
 
 public:
-	KeyboardInputController(QObject *parent, std::shared_ptr<MainWindowView> mainWin);
+	KeyboardInputController(std::shared_ptr<MainWindowView> mainWin, QObject* parent = Q_NULLPTR);
 	~KeyboardInputController() = default;
 
 	KeyboardInputController(const KeyboardInputController&) = delete;
 	KeyboardInputController& operator=(const KeyboardInputController&) = delete;
-
 
 private:
 	// QObject overrides
@@ -27,8 +26,8 @@ private:
 	void onEscapeKeyPressed();
 
 signals:
-	void onLeftKeyPressed();
-	void onRightKeyPressed();
+	void sendLeftKeyPressedSignal();
+	void sendRightKeyPressedSignal();
 
 private:
 	std::shared_ptr<MainWindowView> _mainWinView;

@@ -21,7 +21,7 @@ void MainWindowView::PopulateWindowElements()
 	loadBackgroundImage();
 }
 
-void MainWindowView::AddNewButtonToMenu(std::shared_ptr<EventButtonModel> model)
+void MainWindowView::AddNewButtonToMenu(const std::shared_ptr<EventButtonModel> model)
 {
 	auto eventButton = std::make_shared<EventButtonView>(_parent);
 	eventButton->SetModel(model);
@@ -34,17 +34,39 @@ void MainWindowView::AddNewButtonToMenu(std::shared_ptr<EventButtonModel> model)
 	eventButtonVLayout->setObjectName(layoutObjectName);
 
 	_ui.eventBarHLayout->addWidget(eventButton.get());
-	_titleButtonList.push_back(eventButton);
+	_eventButtonsList.push_back(eventButton);
+}
+
+void MainWindowView::OnButtonGenerationCompleted()
+{
+	// to stylize the starting view the index is starting off center to the left
+	qint32 buttonStartIndex = 1;
+	if (_eventButtonsList.size() > 2)
+	{
+		buttonStartIndex = (_eventButtonsList.size() / 2 - 2);
+	}
+
+	_currentButtonIndex = buttonStartIndex;
+	QEvent event = QEvent(QEvent::Type::Enter);
+	QApplication::sendEvent(_eventButtonsList[buttonStartIndex]->GetVerticalLayoutWidget(), &event);
 }
 
 void MainWindowView::OnMoveSelectionLeft()
 {
-
+	//todo: following
+	// if last left button selected
+		// do nothing
+	// else
+		// move the selection to the left
 }
 
 void MainWindowView::OnMoveSelectionRight()
 {
-
+	//todo: following
+	// if last right button selected
+		// do nothing
+	// else
+		// move the selection to the right
 }
 
 void MainWindowView::loadBackgroundImage()

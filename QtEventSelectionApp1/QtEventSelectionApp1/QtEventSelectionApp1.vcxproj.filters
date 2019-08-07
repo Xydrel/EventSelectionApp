@@ -83,9 +83,6 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainWindowController.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
     <ClInclude Include="EventButtonModel.h">
       <Filter>Models</Filter>
     </ClInclude>
@@ -104,6 +101,9 @@
       <Filter>Models</Filter>
     </QtMoc>
     <QtMoc Include="KeyboardInputController.h">
+      <Filter>Controllers</Filter>
+    </QtMoc>
+    <QtMoc Include="MainWindowController.h">
       <Filter>Controllers</Filter>
     </QtMoc>
   </ItemGroup>

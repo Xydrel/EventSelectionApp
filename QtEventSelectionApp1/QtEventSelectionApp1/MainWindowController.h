@@ -11,10 +11,12 @@
 class MainWindowView;
 class EventButtonModel;
 
-class MainWindowController
+class MainWindowController : public QObject
 {
+	Q_OBJECT
+
 public:
-	MainWindowController(MainWindowView& view);
+	MainWindowController(std::shared_ptr<MainWindowView> mainWin, QObject* parent = Q_NULLPTR);
 	MainWindowController() = delete;
 	~MainWindowController() = default;
 
@@ -24,15 +26,18 @@ public:
 	void Show();
 
 private:
+	void bindCallbackEvents();
 	std::shared_ptr<QList<QString>> GetButtonDatesList();
 	void GenerateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList);
 	void AddButtonToMenu(const std::shared_ptr<EventButtonModel> model);
+
+signals:
+	void sendButtonGenerationCompleteSignal();
 
 private:
 	std::shared_ptr<MainWindowView> _mainWinView;
 	//todo: ? is this needed?
 	std::unique_ptr<QMap<const QString, std::shared_ptr<JsonRequestModel>>> _requestsObjMap;
-	std::shared_ptr<QNetworkAccessManager> _netAccessMngr;
 	std::unique_ptr<KeyboardInputController> _keyboardInputCntrlr;
 };
 

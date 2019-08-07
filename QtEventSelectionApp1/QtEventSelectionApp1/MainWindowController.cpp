@@ -4,13 +4,15 @@
 
 #include <QDateTime>
 
-MainWindowController::MainWindowController(MainWindowView& view)
+MainWindowController::MainWindowController(std::shared_ptr<MainWindowView> mainWin, QObject* parent)
+	: QObject(parent)
 {
-	_mainWinView = std::make_shared<MainWindowView>(&view);
-	_netAccessMngr = std::make_shared<QNetworkAccessManager>();
-	_keyboardInputCntrlr = std::make_unique<KeyboardInputController>(&view, _mainWinView);
+	_mainWinView = mainWin;
+	_keyboardInputCntrlr = std::make_unique<KeyboardInputController>(_mainWinView);
 
 	_mainWinView->installEventFilter(_keyboardInputCntrlr.get());
+
+	bindCallbackEvents();
 
 	auto datesList = GetButtonDatesList();
 	GenerateButtonModelsFromDates(datesList);
@@ -21,6 +23,8 @@ void MainWindowController::Show()
 	_mainWinView->show();
 }
 
+//todo: refactor as the requirement is to generate based on games recieved from the json not dates
+//todo: this method may still be usfull for generating adjacent days and then storing the json info to disk for recall
 std::shared_ptr<QList<QString>> MainWindowController::GetButtonDatesList()
 {
 	// Getting the date and subtracting 4 from it so the menu buttons start 4 days before today
@@ -53,7 +57,7 @@ void MainWindowController::GenerateButtonModelsFromDates(const std::shared_ptr<Q
 		{
 			//todo: complete functionality for json request
 			auto jsonRequest = std::make_shared<JsonRequestModel>();
-			jsonRequest->MakeUrlJsonRequest(_netAccessMngr, datesList->at(i));
+			jsonRequest->MakeUrlJsonRequest(datesList->at(i));
 			//todo: add request object to map ? is this needed?
 
 			auto btnDataModel = std::make_shared<EventButtonModel>();
@@ -66,12 +70,20 @@ void MainWindowController::GenerateButtonModelsFromDates(const std::shared_ptr<Q
 
 			AddButtonToMenu(btnDataModel);
 		}
+
+		sendButtonGenerationCompleteSignal();
+
 	}
 }
 
 void MainWindowController::AddButtonToMenu(const std::shared_ptr<EventButtonModel> model)
 {
 	_mainWinView->AddNewButtonToMenu(model);
+}
+
+void MainWindowController::bindCallbackEvents()
+{
+	QObject::connect(this, SIGNAL(sendButtonGenerationCompleteSignal()), _mainWinView.get(), SLOT(OnButtonGenerationCompleted()));
 }
 
 

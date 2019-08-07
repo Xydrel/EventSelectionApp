@@ -18,7 +18,7 @@ public:
 	JsonRequestModel& operator=(const JsonRequestModel&) = delete;
 
 	// expected date format: yyyy-mm-dd
-	void MakeUrlJsonRequest(std::shared_ptr<QNetworkAccessManager> netAccessMngr, const QString& date);
+	void MakeUrlJsonRequest(const QString& date);
 
 private slots:
 	void parseNetworkRequestReply(QNetworkReply* reply);

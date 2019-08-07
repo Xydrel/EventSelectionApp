@@ -14,7 +14,7 @@ JsonRequestModel::JsonRequestModel(QWidget* parent)
 {
 }
 
-void JsonRequestModel::MakeUrlJsonRequest(std::shared_ptr<QNetworkAccessManager> netAccessMngr, const QString& date)
+void JsonRequestModel::MakeUrlJsonRequest(const QString& date)
 {
 	QString urlString = QString("http://statsapi.mlb.com/api/v1/schedule?hydrate=game(content(editorial(recap))),decisions&date=" + date + "&sportId=1");
 	qDebug() << "urlString = " + urlString;	
