@@ -21,9 +21,6 @@ public:
 	void Populate();
 	QObject* GetVerticalLayoutWidget() const;
 
-public slots:
-	void OnButtonClicked();
-
 private:
 	// QObject overrides
 	bool eventFilter(QObject* watched, QEvent* event) override;
@@ -31,7 +28,6 @@ private:
 
 	void setButtonFrameDimensions();
 	void setButtonDimensions();
-	void bindButtonConnections();
 	void loadButtonImage(const QString& imagePath);
 	void toggleTextVisibility(bool enable);
 	void onFocusResizeButton();

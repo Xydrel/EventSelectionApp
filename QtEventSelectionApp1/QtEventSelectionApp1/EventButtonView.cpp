@@ -13,13 +13,7 @@ EventButtonView::EventButtonView(QWidget *parent)
 
 	setButtonFrameDimensions();
 	setButtonDimensions();
-	bindButtonConnections();
 	toggleTextVisibility(false);
-}
-
-void EventButtonView::OnButtonClicked()
-{
-	//TODO: Implement as extra credit if time permits
 }
 
 void EventButtonView::SetModel(const std::shared_ptr<EventButtonModel> model)
@@ -92,12 +86,6 @@ void EventButtonView::setButtonDimensions()
 	buttonSz.setWidth(_baseButtonWidth);
 	buttonSz.setHeight(_baseButtonHeight);
 	_ui.pushButton->setFixedSize(buttonSz);
-}
-
-void EventButtonView::bindButtonConnections()
-{
-	//todo: migrate to the keyboardinputcontroller so all input handling is there
-	QObject::connect(_ui.pushButton, SIGNAL(clicked()), this, SLOT(OnButtonClicked()));
 }
 
 void EventButtonView::loadButtonImage(const QString& imagePath)
