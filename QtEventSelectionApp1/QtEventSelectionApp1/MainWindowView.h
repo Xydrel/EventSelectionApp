@@ -16,7 +16,7 @@ class MainWindowView : public QMainWindow
 	Q_OBJECT
 
 public:
-	MainWindowView(QWidget *parent = Q_NULLPTR);
+	MainWindowView(QWidget* parent = Q_NULLPTR);
 	~MainWindowView() = default;
 
 	MainWindowView(const MainWindowView&) = delete;
@@ -24,6 +24,7 @@ public:
 
 	void PopulateWindowElements();
 	void AddNewButtonToMenu(std::shared_ptr<EventButtonModel> model);
+
 
 private:
 	void loadBackgroundImage();

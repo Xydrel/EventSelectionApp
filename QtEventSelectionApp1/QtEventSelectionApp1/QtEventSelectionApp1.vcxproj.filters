@@ -62,6 +62,9 @@
     <ClCompile Include="BackgroundImageModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="JsonRequestModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindowView.ui">
@@ -93,6 +96,9 @@
     </QtMoc>
     <QtMoc Include="EventButtonView.h">
       <Filter>Views</Filter>
+    </QtMoc>
+    <QtMoc Include="JsonRequestModel.h">
+      <Filter>Models</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

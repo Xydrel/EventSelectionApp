@@ -7,6 +7,7 @@
 MainWindowController::MainWindowController(MainWindowView& view)
 {
 	_mainWinView = std::make_unique<MainWindowView>(&view);
+	_netAccessMngr = std::make_shared<QNetworkAccessManager>();
 
 	auto datesList = GetButtonDatesList();
 	GenerateButtonModelsFromDates(datesList);
@@ -40,13 +41,18 @@ std::shared_ptr<QList<QString>> MainWindowController::GetButtonDatesList()
 	return dateList;
 }
 
-void MainWindowController::GenerateButtonModelsFromDates(std::shared_ptr<QList<QString>> datesList)
+void MainWindowController::GenerateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList)
 {
 	if (_mainWinView != nullptr)
 	{
+		_requestsObjMap = std::make_unique<QMap<const QString, std::shared_ptr<JsonRequestModel>>>();
 		for (auto i = 0; i < datesList->size(); i++)
 		{
-			// TODO: make actual request for the json object data to assign to this data for use in button generation
+			//todo: complete functionality for json request
+			auto jsonRequest = std::make_shared<JsonRequestModel>();
+			jsonRequest->MakeUrlJsonRequest(_netAccessMngr, datesList->at(i));
+			//todo: add request object to map ? is this needed?
+
 			auto btnDataModel = std::make_shared<EventButtonModel>();
 			btnDataModel->SetObjectName(datesList->at(i));
 			btnDataModel->SetImagePath(datesList->at(i) + "/test/image/path");
@@ -60,7 +66,7 @@ void MainWindowController::GenerateButtonModelsFromDates(std::shared_ptr<QList<Q
 	}
 }
 
-void MainWindowController::AddButtonToMenu(std::shared_ptr<EventButtonModel> model)
+void MainWindowController::AddButtonToMenu(const std::shared_ptr<EventButtonModel> model)
 {
 	_mainWinView->AddNewButtonToMenu(model);
 }

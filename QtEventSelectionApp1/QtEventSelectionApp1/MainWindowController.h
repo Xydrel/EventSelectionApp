@@ -1,6 +1,9 @@
 #pragma once
 #include <memory>
 
+#include "JsonRequestModel.h"
+
+#include <QNetworkAccessManager>
 #include <QList>
 #include <QString>
 
@@ -21,11 +24,13 @@ public:
 
 private:
 	std::shared_ptr<QList<QString>> GetButtonDatesList();
-	void GenerateButtonModelsFromDates(std::shared_ptr<QList<QString>> datesList);
-	void AddButtonToMenu(std::shared_ptr<EventButtonModel> model);
+	void GenerateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList);
+	void AddButtonToMenu(const std::shared_ptr<EventButtonModel> model);
 
 private:
 	std::unique_ptr<MainWindowView> _mainWinView;
-
+	//todo: ? is this needed?
+	std::unique_ptr<QMap<const QString, std::shared_ptr<JsonRequestModel>>> _requestsObjMap;
+	std::shared_ptr<QNetworkAccessManager> _netAccessMngr;
 };
 
