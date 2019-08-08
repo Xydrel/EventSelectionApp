@@ -30,23 +30,23 @@ bool KeyboardInputController::eventFilter(QObject* watched, QEvent* event)
 			//todo: investigate further
 			case Qt::Key_Left:
 			{
-				sendLeftKeyPressedSignal();
+				notifyLeftKeyPressedSignal();
 				return false;
 			}			
 			case Qt::Key_Right:
 			{
-				sendRightKeyPressedSignal();
+				notifyRightKeyPressedSignal();
 				return false;
 			}
 			//todo: end investigate further
 			case Qt::Key_S:
 			{
-				sendLeftKeyPressedSignal();
+				notifyLeftKeyPressedSignal();
 				return false;
 			}
 			case Qt::Key_F:
 			{
-				sendRightKeyPressedSignal();
+				notifyRightKeyPressedSignal();
 				return false;
 			}
 			default:
@@ -58,8 +58,8 @@ bool KeyboardInputController::eventFilter(QObject* watched, QEvent* event)
 
 void KeyboardInputController::bindKeyboardInputSignalCallbacks()
 {
-	QObject::connect(this, SIGNAL(sendLeftKeyPressedSignal()), _mainWinView.get(), SLOT(OnMoveSelectionLeft()));
-	QObject::connect(this, SIGNAL(sendRightKeyPressedSignal()), _mainWinView.get(), SLOT(OnMoveSelectionRight()));
+	QObject::connect(this, SIGNAL(notifyLeftKeyPressedSignal()), _mainWinView.get(), SLOT(OnMoveSelectionLeft()));
+	QObject::connect(this, SIGNAL(notifyRightKeyPressedSignal()), _mainWinView.get(), SLOT(OnMoveSelectionRight()));
 }
 
 void KeyboardInputController::onEscapeKeyPressed()

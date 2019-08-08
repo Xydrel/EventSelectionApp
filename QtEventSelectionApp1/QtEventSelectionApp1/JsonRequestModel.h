@@ -1,17 +1,19 @@
 #pragma once
 
-#include <QWidget>
+#include <QObject>
 #include <QNetworkAccessManager>
 #include <QUrl>
+#include <QJsonArray>
 
 class QNetworkReply;
+class QJsonArray;
 
-class JsonRequestModel : public QWidget
+class JsonRequestModel : public QObject
 {
 	Q_OBJECT
 
 public:
-	JsonRequestModel(QWidget* parent = Q_NULLPTR);
+	JsonRequestModel(QObject* parent = Q_NULLPTR);
 	~JsonRequestModel() = default;
 
 	JsonRequestModel(const JsonRequestModel&) = delete;
@@ -19,10 +21,18 @@ public:
 
 	// expected date format: yyyy-mm-dd
 	void MakeUrlJsonRequest(const QString& date);
+	QJsonArray& GetJsonGamesArray();
+
+private:
+	
 
 private slots:
 	void onJsonRequestFinnished(QNetworkReply* reply);
 
+signals:
+	void notifyJsonParseComplete();
+
 private:
 	std::unique_ptr<QNetworkAccessManager> _netAccessMngr;
+	QJsonArray _gamesArray;
 };

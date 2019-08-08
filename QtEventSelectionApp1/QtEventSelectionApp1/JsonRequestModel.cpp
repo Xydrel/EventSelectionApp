@@ -3,14 +3,12 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QUrlQuery>
-
-//TODO: validate all these are needed and remove the ones that are not
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
+#include <QMessageBox>
 
-JsonRequestModel::JsonRequestModel(QWidget* parent)
-	: QWidget(parent)
+JsonRequestModel::JsonRequestModel(QObject* parent)
+	: QObject(parent)
 {
 	_netAccessMngr = std::make_unique<QNetworkAccessManager>();
 }
@@ -40,6 +38,11 @@ void JsonRequestModel::MakeUrlJsonRequest(const QString& date)
 	}
 
 	_netAccessMngr->clearAccessCache();
+}
+
+QJsonArray& JsonRequestModel::GetJsonGamesArray()
+{
+	return _gamesArray;
 }
 
 void JsonRequestModel::onJsonRequestFinnished(QNetworkReply* reply)
@@ -80,19 +83,35 @@ void JsonRequestModel::onJsonRequestFinnished(QNetworkReply* reply)
 			QString strReply = QString(reply->readAll());
 			qDebug() << strReply;
 			
-			QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+			QJsonParseError jsonError;
+			QJsonDocument jsonDoc = QJsonDocument::fromJson(strReply.toUtf8(), &jsonError);
+			if (jsonError.error != QJsonParseError::NoError)
+			{
+				qDebug() << "ERROR reading string to json: " + jsonError.errorString();
+				break;
+			}
 
-			/* some code demonstrating  how to parse json for later once a response is received
-			//parse the reply JSON and display result in the UI
-
-			QString fullName= jsonObj["name"].toString();
-			fullName.append(" ");
-			fullName.append(jsonObj["surname"].toString());
-			lineEditName.setText(fullName);
-			lineEditGender.setText(jsonObj["gender"].toString());
-			lineEditRegion.setText(jsonObj["region"].toString());
-			*/
-
+			QJsonObject jsonObj = jsonDoc.object();
+			QJsonObject::Iterator itr = jsonObj.begin();
+			for (; itr != jsonObj.end(); itr++)
+			{
+				if (itr.key() == "dates")
+				{
+					QJsonArray datesArr = itr.value().toArray();
+					for (const auto item : datesArr)
+					{
+						QJsonObject datesObject = item.toObject();
+						QJsonObject::Iterator datesIter = datesObject.begin();
+						for (; datesIter != item.toObject().end(); datesIter++)
+						{
+							if (datesIter.key() == "games")
+							{
+								_gamesArray = datesIter.value().toArray();
+							}
+						}
+					}
+				}
+			}
 			break;
 		}
 		default:
@@ -103,6 +122,8 @@ void JsonRequestModel::onJsonRequestFinnished(QNetworkReply* reply)
 	}
 
 	reply->deleteLater();
+
+	// notify that the array is ready
 }
 
 

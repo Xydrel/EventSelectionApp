@@ -28,11 +28,13 @@ public:
 private:
 	void bindCallbackEvents();
 	std::shared_ptr<QList<QString>> getButtonDatesList();
+	QString getTodaysFormattedDate();
+	void invokeJsonRequest(const QString& formattedDate);
 	void generateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList);
 	void addButtonToMenu(const std::shared_ptr<EventButtonModel> model);
 
 signals:
-	void sendButtonGenerationCompleteSignal();
+	void notifyButtonGenerationCompleteSignal();
 
 private:
 	std::shared_ptr<MainWindowView> _mainWinView;

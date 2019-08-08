@@ -26,8 +26,8 @@ private:
 	void onEscapeKeyPressed();
 
 signals:
-	void sendLeftKeyPressedSignal();
-	void sendRightKeyPressedSignal();
+	void notifyLeftKeyPressedSignal();
+	void notifyRightKeyPressedSignal();
 
 private:
 	std::shared_ptr<MainWindowView> _mainWinView;
