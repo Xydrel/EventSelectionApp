@@ -14,8 +14,8 @@ MainWindowController::MainWindowController(std::shared_ptr<MainWindowView> mainW
 
 	bindCallbackEvents();
 
-	auto datesList = GetButtonDatesList();
-	GenerateButtonModelsFromDates(datesList);
+	auto datesList = getButtonDatesList();
+	generateButtonModelsFromDates(datesList);
 }
 
 void MainWindowController::Show()
@@ -25,7 +25,7 @@ void MainWindowController::Show()
 
 //todo: refactor as the requirement is to generate based on games recieved from the json not dates
 //this method may still be usfull for generating adjacent days and then storing the json info to disk for recall
-std::shared_ptr<QList<QString>> MainWindowController::GetButtonDatesList()
+std::shared_ptr<QList<QString>> MainWindowController::getButtonDatesList()
 {
 	// Getting the date and subtracting 4 from it so the menu buttons start 4 days before today
 	auto dateList = std::make_shared<QList<QString>>();
@@ -48,7 +48,7 @@ std::shared_ptr<QList<QString>> MainWindowController::GetButtonDatesList()
 	return dateList;
 }
 
-void MainWindowController::GenerateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList)
+void MainWindowController::generateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList)
 {
 	if (_mainWinView != nullptr)
 	{
@@ -72,7 +72,7 @@ void MainWindowController::GenerateButtonModelsFromDates(const std::shared_ptr<Q
 			btnDataModel->SetLowerDescriptionText("Lower Description Text");
 			btnDataModel->SetThumbnailNameText("The Thumbnail");
 
-			AddButtonToMenu(btnDataModel);
+			addButtonToMenu(btnDataModel);
 		}
 
 		sendButtonGenerationCompleteSignal();
@@ -80,7 +80,7 @@ void MainWindowController::GenerateButtonModelsFromDates(const std::shared_ptr<Q
 	}
 }
 
-void MainWindowController::AddButtonToMenu(const std::shared_ptr<EventButtonModel> model)
+void MainWindowController::addButtonToMenu(const std::shared_ptr<EventButtonModel> model)
 {
 	_mainWinView->AddNewButtonToMenu(model);
 }

@@ -27,9 +27,9 @@ public:
 
 private:
 	void bindCallbackEvents();
-	std::shared_ptr<QList<QString>> GetButtonDatesList();
-	void GenerateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList);
-	void AddButtonToMenu(const std::shared_ptr<EventButtonModel> model);
+	std::shared_ptr<QList<QString>> getButtonDatesList();
+	void generateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList);
+	void addButtonToMenu(const std::shared_ptr<EventButtonModel> model);
 
 signals:
 	void sendButtonGenerationCompleteSignal();
