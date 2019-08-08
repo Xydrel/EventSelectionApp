@@ -39,16 +39,21 @@ public:
         MainWindowViewClass->resize(1920, 1080);
         centralWidget = new QWidget(MainWindowViewClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
+        centralWidget->setSizePolicy(sizePolicy);
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 170, 1921, 261));
+        verticalLayoutWidget->setGeometry(QRect(0, 80, 1921, 451));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         eventBarHLayout = new QHBoxLayout();
-        eventBarHLayout->setSpacing(6);
+        eventBarHLayout->setSpacing(4);
         eventBarHLayout->setObjectName(QString::fromUtf8("eventBarHLayout"));
 
         verticalLayout->addLayout(eventBarHLayout);

@@ -41,6 +41,6 @@ private:
 	const qint32 _baseButtonWidth = 120;
 	const qint32 _baseButtonHeight = 100;
 	const qint32 _buttonFrameWidth = 255;
-	const qint32 _buttonFrameHeight = 255;
+	const qint32 _buttonFrameHeight = 200;
 	const float_t _hoveredScaler = 1.5;
 };
