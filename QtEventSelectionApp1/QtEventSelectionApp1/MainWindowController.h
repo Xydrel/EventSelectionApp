@@ -37,7 +37,7 @@ signals:
 private:
 	std::shared_ptr<MainWindowView> _mainWinView;
 	//todo: ? is this needed?
-	std::unique_ptr<QMap<const QString, std::shared_ptr<JsonRequestModel>>> _requestsObjMap;
+	std::unique_ptr<QList<std::shared_ptr<JsonRequestModel>>> _requestsObjList;
 	std::unique_ptr<KeyboardInputController> _keyboardInputCntrlr;
 };
 

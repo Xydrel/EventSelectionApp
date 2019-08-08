@@ -21,7 +21,7 @@ public:
 	void MakeUrlJsonRequest(const QString& date);
 
 private slots:
-	void parseNetworkRequestReply(QNetworkReply* reply);
+	void onJsonRequestFinnished(QNetworkReply* reply);
 
 private:
 	std::unique_ptr<QNetworkAccessManager> _netAccessMngr;

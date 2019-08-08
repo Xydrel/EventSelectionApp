@@ -2,7 +2,7 @@
 
 #include <QNetworkRequest>
 #include <QNetworkReply>
-#include <QThread>
+#include <QUrlQuery>
 
 //TODO: validate all these are needed and remove the ones that are not
 #include <QJsonDocument>
@@ -12,43 +12,37 @@
 JsonRequestModel::JsonRequestModel(QWidget* parent)
 	: QWidget(parent)
 {
+	_netAccessMngr = std::make_unique<QNetworkAccessManager>();
 }
 
 void JsonRequestModel::MakeUrlJsonRequest(const QString& date)
 {
-	QString urlString = QString("http://statsapi.mlb.com/api/v1/schedule?hydrate=game(content(editorial(recap))),decisions&date=" + date + "&sportId=1");
-	qDebug() << "urlString = " + urlString;	
+	QUrl requestUrl = QUrl("http://statsapi.mlb.com/api/v1/schedule", QUrl::StrictMode);
+	QUrlQuery query;
+	query.addQueryItem("hydrate", "game(content(editorial(recap))),decisions");
+	query.addQueryItem("date", date);
+	query.addQueryItem("sportId", "1");
 
-	QNetworkAccessManager networkManager;
-	networkManager.moveToThread(QThread::currentThread());
+	requestUrl.setQuery(query.query());
+	qDebug() << "query url = " + requestUrl.toString();
 
-	QObject::connect(&networkManager, SIGNAL(finished(QNetworkReply*)),
-		this, SLOT(parseNetworkRequestReply(QNetworkReply*)));
-
-	if (networkManager.networkAccessible())
+	_netAccessMngr->clearConnectionCache();
+	if (_netAccessMngr->networkAccessible())
 	{
-		QNetworkRequest request(QUrl(urlString, QUrl::TolerantMode));
-		qDebug() << "request stored URL = " + request.url().toDisplayString();
-		request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-		request.setRawHeader("Host", "statsapi.mlb.com");
-				
-		QNetworkReply* reply = networkManager.get(request);
-		reply->waitForReadyRead(20 * 100);
+		QObject::connect(_netAccessMngr.get(), SIGNAL(finished(QNetworkReply*)), this, SLOT(onJsonRequestFinnished(QNetworkReply*)));
 
-		//todo: resolve currently infinite loop caused by the reply always being in a running state
-		//while (reply->isRunning())
-		//{
-		//	if (reply->isFinished())
-		//	{
-		//		parseNetworkRequestReply(reply);
-		//	}
-		//}
-
-		reply->deleteLater();
+		QNetworkRequest request;
+		request.setUrl(requestUrl);
+		request.setRawHeader("host", "statsapi.mlb.com");
+		request.setRawHeader("Content-Type", "application/json");
+		
+		QNetworkReply* reply = _netAccessMngr->get(request);
 	}
+
+	_netAccessMngr->clearAccessCache();
 }
 
-void JsonRequestModel::parseNetworkRequestReply(QNetworkReply* reply)
+void JsonRequestModel::onJsonRequestFinnished(QNetworkReply* reply)
 {
 	qDebug() << "Entered into parseNetworkRequestReply callback";
 
@@ -84,11 +78,21 @@ void JsonRequestModel::parseNetworkRequestReply(QNetworkReply* reply)
 			qDebug() << "QNetworkReply::NoError";
 
 			QString strReply = QString(reply->readAll());
-			qDebug() << "Printing string from read all";
 			qDebug() << strReply;
+			
+			QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
 
-			QJsonDocument jsonResponse = QJsonDocument::fromJson(strReply.toUtf8());
-			QJsonObject jsonObj = jsonResponse.object();
+			/* some code demonstrating  how to parse json for later once a response is received
+			//parse the reply JSON and display result in the UI
+
+			QString fullName= jsonObj["name"].toString();
+			fullName.append(" ");
+			fullName.append(jsonObj["surname"].toString());
+			lineEditName.setText(fullName);
+			lineEditGender.setText(jsonObj["gender"].toString());
+			lineEditRegion.setText(jsonObj["region"].toString());
+			*/
+
 			break;
 		}
 		default:
@@ -98,19 +102,7 @@ void JsonRequestModel::parseNetworkRequestReply(QNetworkReply* reply)
 		}
 	}
 
-	//todo: debug code remove 
-	qint64 availBytes = reply->bytesAvailable();
-	if (availBytes > 0)
-	{
-		qDebug() << "There are some bytes avail";
-	}
-
-	if (QString(reply->readAll()) == "")
-	{
-		qDebug() << "ERROR: The QNetworkReply was empty!";
-	}
-	//todo: end remove debug code
-
+	reply->deleteLater();
 }
 
 
