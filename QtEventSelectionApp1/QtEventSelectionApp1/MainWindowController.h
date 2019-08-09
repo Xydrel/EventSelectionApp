@@ -30,8 +30,8 @@ public slots:
 
 private:
 	void bindMainWindowControllerCallbackEvents();
-	std::shared_ptr<QList<QString>> getTodayAndAdjacentDatesList();
-	QString getTodaysFormattedDate();
+	const std::shared_ptr<QList<QString>> getTodayAndAdjacentDatesList() const;
+	const QString getTodaysFormattedDate() const;
 	void invokeJsonRequest(const QString& formattedDate);
 	void generateButtonModelsFromGamesData(const QJsonArray& gamesArr);
 	void addButtonToMenu(const std::shared_ptr<EventButtonModel> model);

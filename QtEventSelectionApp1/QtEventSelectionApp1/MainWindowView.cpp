@@ -58,8 +58,8 @@ void MainWindowView::OnButtonGenerationCompleted()
 	}
 
 	_currentButtonIndex = buttonStartIndex;
-	QEvent event = QEvent(QEvent::Type::FocusIn);
-	QApplication::sendEvent(_eventButtonsList[buttonStartIndex]->GetVerticalLayoutWidget(), &event);
+	QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
+	QApplication::sendEvent(_eventButtonsList[buttonStartIndex]->GetVerticalLayoutWidget(), &focusInEvent);
 }
 
 void MainWindowView::OnMoveSelectionLeft()
@@ -70,11 +70,11 @@ void MainWindowView::OnMoveSelectionLeft()
 	{
 		if (_currentButtonIndex > 0)
 		{
-			QEvent leaveEvent = QEvent(QEvent::Type::FocusOut);
-			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &leaveEvent);
+			QEvent focusOutEvent = QEvent(QEvent::Type::FocusOut);
+			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusOutEvent);
 			_currentButtonIndex--;
-			QEvent enterEvent = QEvent(QEvent::Type::FocusIn);
-			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &enterEvent);
+			QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
+			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusInEvent);
 		}
 		_elapsedTime = 1;
 
@@ -89,11 +89,11 @@ void MainWindowView::OnMoveSelectionRight()
 	{
 		if (_currentButtonIndex < _eventButtonsList.size() - 1)
 		{
-			QEvent leaveEvent = QEvent(QEvent::Type::FocusOut);
-			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &leaveEvent);
+			QEvent focusOutEvent = QEvent(QEvent::Type::FocusOut);
+			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusOutEvent);
 			_currentButtonIndex++;
-			QEvent enterEvent = QEvent(QEvent::Type::FocusIn);
-			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &enterEvent);
+			QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
+			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusInEvent);
 		}
 		_elapsedTime = 1;
 

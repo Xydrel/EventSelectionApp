@@ -18,6 +18,9 @@ MainWindowController::MainWindowController(std::shared_ptr<MainWindowView> mainW
 	bindMainWindowControllerCallbackEvents();
 
 	QString formattedDate = getTodaysFormattedDate();
+	//todo: remove value override for testing
+	//formattedDate = "2019-08-05";
+	// end testing override value
 	invokeJsonRequest(formattedDate);
 }
 
@@ -40,7 +43,7 @@ void MainWindowController::bindMainWindowControllerCallbackEvents()
 }
 
 //todo: deprecated
-std::shared_ptr<QList<QString>> MainWindowController::getTodayAndAdjacentDatesList()
+const std::shared_ptr<QList<QString>> MainWindowController::getTodayAndAdjacentDatesList() const
 {
 	auto dateList = std::make_shared<QList<QString>>();
 	QDate todaysDate = QDate::currentDate();
@@ -62,14 +65,14 @@ std::shared_ptr<QList<QString>> MainWindowController::getTodayAndAdjacentDatesLi
 	return dateList;
 }
 
-QString MainWindowController::getTodaysFormattedDate()
+const QString MainWindowController::getTodaysFormattedDate() const
 {
 	QDate todaysDate = QDate::currentDate();
 	std::string year = std::to_string(todaysDate.year());
 	std::string month = (todaysDate.month() > 9) ? std::to_string(todaysDate.month()) : "0" + std::to_string(todaysDate.month());
 	std::string day = (todaysDate.day() > 9) ? std::to_string(todaysDate.day()) : "0" + std::to_string(todaysDate.day());
 
-	return QString::fromStdString(year + "-" + month + "-" + day);	
+	return QString::fromStdString(year + "-" + month + "-" + day);
 }
 
 void MainWindowController::invokeJsonRequest(const QString& formattedDate)
