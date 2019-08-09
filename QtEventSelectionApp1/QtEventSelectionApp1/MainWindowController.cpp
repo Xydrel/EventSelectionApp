@@ -10,7 +10,6 @@ MainWindowController::MainWindowController(std::shared_ptr<MainWindowView> mainW
 {
 	_mainWinView = mainWin;
 	_keyboardInputComp = std::make_unique<KeyboardInputComponent>(_mainWinView);
-	_requestsObjList = std::make_unique<QList<std::shared_ptr<HTTPRequestComponent>>>();	
 	_httpRequestComponent = std::make_shared<HTTPRequestComponent>(this);
 
 	_mainWinView->installEventFilter(_keyboardInputComp.get());
@@ -28,12 +27,8 @@ void MainWindowController::Show()
 
 void MainWindowController::OnJsonParseComplete()
 {
-	// using a list in case I had time to do extra credit work to load adjacent dates
-	if (_requestsObjList->size() > 0 && _requestsObjList->size() < 2)
-	{
-		const QJsonArray& gamesArray = _requestsObjList->at(0)->GetJsonGamesArray();
-		generateButtonModelsFromGamesData(gamesArray);
-	}
+	const QJsonArray& gamesArray = _httpRequestComponent->GetJsonGamesArray();
+	generateButtonModelsFromGamesData(gamesArray);
 }
 
 void MainWindowController::bindMainWindowControllerCallbackEvents()
@@ -78,7 +73,6 @@ const QString MainWindowController::getTodaysFormattedDate() const
 void MainWindowController::invokeJsonRequest(const QString& formattedDate)
 {
 	_httpRequestComponent->MakeUrlJsonRequest(formattedDate);
-	_requestsObjList->push_back(_httpRequestComponent);
 }
 
 void MainWindowController::generateButtonModelsFromGamesData(const QJsonArray& gamesArr)

@@ -41,9 +41,7 @@ signals:
 
 private:
 	std::shared_ptr<MainWindowView> _mainWinView;
-	std::unique_ptr<QList<std::shared_ptr<HTTPRequestComponent>>> _requestsObjList;
 	std::unique_ptr<KeyboardInputComponent> _keyboardInputComp;
 	std::shared_ptr<HTTPRequestComponent> _httpRequestComponent;
-
 };
 
