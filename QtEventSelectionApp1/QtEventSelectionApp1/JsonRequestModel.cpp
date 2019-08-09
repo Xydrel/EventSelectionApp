@@ -1,4 +1,5 @@
 #include "JsonRequestModel.h"
+#include "MainWindowController.h"
 
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -7,10 +8,21 @@
 #include <QJsonObject>
 #include <QMessageBox>
 
-JsonRequestModel::JsonRequestModel(QObject* parent)
+JsonRequestModel::JsonRequestModel(MainWindowController* mainWinCntrl, QObject* parent)
 	: QObject(parent)
 {
+	_mainWindController = mainWinCntrl;
 	_netAccessMngr = std::make_unique<QNetworkAccessManager>();
+	
+	bindJsonRequestModelCallbackEvents();
+}
+
+JsonRequestModel::~JsonRequestModel()
+{
+	if (_mainWindController != nullptr)
+	{
+		_mainWindController = nullptr;
+	}
 }
 
 void JsonRequestModel::MakeUrlJsonRequest(const QString& date)
@@ -27,22 +39,27 @@ void JsonRequestModel::MakeUrlJsonRequest(const QString& date)
 	_netAccessMngr->clearConnectionCache();
 	if (_netAccessMngr->networkAccessible())
 	{
-		QObject::connect(_netAccessMngr.get(), SIGNAL(finished(QNetworkReply*)), this, SLOT(onJsonRequestFinnished(QNetworkReply*)));
 
 		QNetworkRequest request;
 		request.setUrl(requestUrl);
 		request.setRawHeader("host", "statsapi.mlb.com");
 		request.setRawHeader("Content-Type", "application/json");
 		
-		QNetworkReply* reply = _netAccessMngr->get(request);
+		_netAccessMngr->get(request);
 	}
 
 	_netAccessMngr->clearAccessCache();
 }
 
-QJsonArray& JsonRequestModel::GetJsonGamesArray()
+const QJsonArray& JsonRequestModel::GetJsonGamesArray()
 {
 	return _gamesArray;
+}
+
+void JsonRequestModel::bindJsonRequestModelCallbackEvents()
+{
+		QObject::connect(_netAccessMngr.get(), SIGNAL(finished(QNetworkReply*)), this, SLOT(onJsonRequestFinnished(QNetworkReply*)));
+		QObject::connect(this, SIGNAL(notifyJsonParseComplete()), _mainWindController, SLOT(onJsonRequestFinnished()));
 }
 
 void JsonRequestModel::onJsonRequestFinnished(QNetworkReply* reply)
@@ -123,7 +140,8 @@ void JsonRequestModel::onJsonRequestFinnished(QNetworkReply* reply)
 
 	reply->deleteLater();
 
-	// notify that the array is ready
+	// must remain last call after all processing
+	notifyJsonParseComplete();
 }
 
 

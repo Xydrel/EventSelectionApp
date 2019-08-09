@@ -25,12 +25,15 @@ public:
 
 	void Show();
 
+public slots:
+	void OnJsonParseComplete();
+
 private:
-	void bindCallbackEvents();
-	std::shared_ptr<QList<QString>> getButtonDatesList();
+	void bindMainWindowControllerCallbackEvents();
+	std::shared_ptr<QList<QString>> getTodayAndAdjacentDatesList();
 	QString getTodaysFormattedDate();
 	void invokeJsonRequest(const QString& formattedDate);
-	void generateButtonModelsFromDates(const std::shared_ptr<QList<QString>> datesList);
+	void generateButtonModelsFromGamesData(const QJsonArray& gamesArr);
 	void addButtonToMenu(const std::shared_ptr<EventButtonModel> model);
 
 signals:
@@ -40,6 +43,9 @@ private:
 	std::shared_ptr<MainWindowView> _mainWinView;
 	//todo: ? is this needed?
 	std::unique_ptr<QList<std::shared_ptr<JsonRequestModel>>> _requestsObjList;
+	//? end
 	std::unique_ptr<KeyboardInputController> _keyboardInputCntrlr;
+	std::shared_ptr<JsonRequestModel> _jsonRequestModel;
+
 };
 
