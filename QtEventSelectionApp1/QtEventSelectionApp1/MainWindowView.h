@@ -42,7 +42,4 @@ private:
 	QPalette _palette;
 	QList<std::shared_ptr<EventButtonView>> _eventButtonsList;
 	qint32 _currentButtonIndex;
-
-	qint32 _elapsedTime = 0;
-	const qint64 _msDelayWait = 2000;
 };

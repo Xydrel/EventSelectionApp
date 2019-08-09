@@ -26,6 +26,7 @@ private:
 	bool eventFilter(QObject* watched, QEvent* event) override;
 	// End QObject overrides
 
+	void setButtonViewLayoutDimensions();
 	void setButtonFrameDimensions();
 	void setButtonDimensions();
 	void loadButtonImage(const QString& imagePath);
@@ -38,6 +39,8 @@ private:
 	QPalette _palette;
 	std::shared_ptr<EventButtonModel> _model;
 
+	const qint32 _baseLayoutWidth = 255;
+	const qint32 _baseLayoutHeight = 450;
 	const qint32 _baseButtonWidth = 120;
 	const qint32 _baseButtonHeight = 100;
 	const qint32 _buttonFrameWidth = 255;

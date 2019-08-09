@@ -4,6 +4,7 @@
 #include <QPixmap>
 #include <QPalette>
 #include <QSize>
+#include <QFont>
 
 EventButtonView::EventButtonView(QWidget *parent)
 	: QWidget(parent)
@@ -11,6 +12,7 @@ EventButtonView::EventButtonView(QWidget *parent)
 	_ui.setupUi(this);
 	_ui.verticalLayoutWidget->installEventFilter(this);
 
+	setButtonViewLayoutDimensions();
 	setButtonFrameDimensions();
 	setButtonDimensions();
 	toggleTextVisibility(false);
@@ -27,23 +29,43 @@ void EventButtonView::Populate()
 
 	_ui.frame->setStyleSheet("QFrame {background-position: bottom center}");
 
-	_ui.titleHeader->setText(_model->GetHeader());
-	_ui.titleHeader->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
-	_ui.titleHeader->setStyleSheet("QLabel {color:rgb(211,211,211); font-weight:bold}");
+	QFont buttonHeaderFont;
+	buttonHeaderFont.setBold(true);
+	buttonHeaderFont.setPointSize(9);
+	_ui.eventHeader->setFont(buttonHeaderFont);
+	_ui.eventHeader->setText(_model->GetHeader());
+	_ui.eventHeader->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+	_ui.eventHeader->setStyleSheet("QLabel {color:rgb(211,211,211); font-weight:bold}");
 
+	QFont descriptionFont;
+	descriptionFont.setBold(true);
+	descriptionFont.setPointSize(10);
+	_ui.description->setFont(descriptionFont);
 	_ui.description->setText(_model->GetDescription());
 	_ui.description->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	_ui.description->setStyleSheet("QLabel {color:rgb(169,169,169)}");
 
+	QFont lowerDescriptionFont;
+	lowerDescriptionFont.setBold(false);
+	lowerDescriptionFont.setPointSize(6);
+	_ui.lowerDescription->setFont(lowerDescriptionFont);
 	_ui.lowerDescription->setText(_model->GetLowerDescription());
 	_ui.lowerDescription->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 	_ui.lowerDescription->setStyleSheet("QLabel {color:rgb(128,128,128); font-weight:italic}");
 
-	_ui.thumbnailName->setText(_model->GetThumbnailName());
-	_ui.thumbnailName->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
-	_ui.thumbnailName->setStyleSheet("QLabel {color:rgb(128,128,128); font-weight:italic}");
+	QFont thumbnailFont;
+	thumbnailFont.setBold(false);
+	thumbnailFont.setPointSize(6);
+	_ui.bottomDescription->setFont(thumbnailFont);
+	_ui.bottomDescription->setText(_model->GetBottomeDescription());
+	_ui.bottomDescription->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+	_ui.bottomDescription->setStyleSheet("QLabel {color:rgb(128,128,128); font-weight:italic}");
 
-	_ui.pushButton->setText(QString("Test text"));
+	QFont buttonFont;
+	buttonFont.setBold(true);
+	buttonFont.setPointSize(8);
+	_ui.pushButton->setFont(buttonFont);
+	_ui.pushButton->setText(QString("08-08-2019"));
 	_ui.pushButton->setStyleSheet("QPushButton {border-color:rgb(105,105,105)}");
 
 	loadButtonImage(_model->GetImagePath());
@@ -70,6 +92,14 @@ bool EventButtonView::eventFilter(QObject* watched, QEvent* event)
 	}
 
 	return false;
+}
+
+void EventButtonView::setButtonViewLayoutDimensions()
+{
+	QSize layoutSz;
+	layoutSz.setWidth(_baseLayoutWidth);
+	layoutSz.setHeight(_baseLayoutHeight);
+	_ui.verticalLayoutWidget->setFixedSize(layoutSz);
 }
 
 void EventButtonView::setButtonFrameDimensions()
@@ -100,22 +130,20 @@ void EventButtonView::toggleTextVisibility(bool enable)
 {
 	if (true == enable)
 	{
-		_ui.titleHeader->show();
+		_ui.eventHeader->show();
 		_ui.description->show();
 		_ui.lowerDescription->show();
-		_ui.thumbnailName->show();
+		_ui.bottomDescription->show();
 	}
 	else
 	{
-		_ui.titleHeader->hide();
+		_ui.eventHeader->hide();
 		_ui.description->hide();
 		_ui.lowerDescription->hide();
-		_ui.thumbnailName->hide();
+		_ui.bottomDescription->hide();
 	}
 }
 
-
-// Bound Slot callbacks
 void EventButtonView::onFocusResizeButton()
 {
 	QSize scaledSz;

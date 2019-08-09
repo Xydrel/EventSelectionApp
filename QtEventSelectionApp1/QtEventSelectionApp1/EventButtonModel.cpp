@@ -10,7 +10,7 @@ EventButtonModel::EventButtonModel(QString objName, QString imagePath, QString h
 	_header(header),
 	_description(description),
 	_lowerDesc(lowerDesc),
-	_thumbnailName(thumbnailName)
+	_bottomDescription(thumbnailName)
 {
 
 }
@@ -65,12 +65,12 @@ void EventButtonModel::SetLowerDescriptionText(QString text)
 	_lowerDesc = text;
 }
 
-const QString & EventButtonModel::GetThumbnailName() const
+const QString & EventButtonModel::GetBottomeDescription() const
 {
-	return _thumbnailName;
+	return _bottomDescription;
 }
 
-void EventButtonModel::SetThumbnailNameText(QString text)
+void EventButtonModel::SetBottomDescriptionText(QString text)
 {
-	_thumbnailName = text;
+	_bottomDescription = text;
 }

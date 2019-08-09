@@ -27,8 +27,8 @@ public:
 	const QString& GetLowerDescription() const;
 	void SetLowerDescriptionText(QString text);
 
-	const QString& GetThumbnailName() const;
-	void SetThumbnailNameText(QString text);
+	const QString& GetBottomeDescription() const;
+	void SetBottomDescriptionText(QString text);
 
 private:
 	QString _objectName;
@@ -36,6 +36,6 @@ private:
 	QString _header;
 	QString _description;
 	QString _lowerDesc;
-	QString _thumbnailName;
+	QString _bottomDescription;
 };
 

@@ -18,9 +18,9 @@ MainWindowController::MainWindowController(std::shared_ptr<MainWindowView> mainW
 	bindMainWindowControllerCallbackEvents();
 
 	QString formattedDate = getTodaysFormattedDate();
-	//todo: remove value override for testing
-	//formattedDate = "2019-08-05";
-	// end testing override value
+	//todo: Stop hard coding the date value to dynamically collect todays date
+	formattedDate = "2019-08-08";
+	// end hard coded value
 	invokeJsonRequest(formattedDate);
 }
 
@@ -42,7 +42,7 @@ void MainWindowController::bindMainWindowControllerCallbackEvents()
 	QObject::connect(_jsonRequestModel.get(), SIGNAL(notifyJsonParseComplete()), this, SLOT(OnJsonParseComplete()));
 }
 
-//todo: deprecated
+//todo: Extra credit code for loading the adjacent dates json
 const std::shared_ptr<QList<QString>> MainWindowController::getTodayAndAdjacentDatesList() const
 {
 	auto dateList = std::make_shared<QList<QString>>();
@@ -99,8 +99,8 @@ void MainWindowController::generateButtonModelsFromGamesData(const QJsonArray& g
 			QVariantMap awayTeamVarMap = teamsVarMapFromJson["away"].toJsonObject().toVariantMap()["team"].toJsonObject().toVariantMap();
 			btnDataModel->SetHeaderText(homeTeamVarMap["name"].toString() + " vs. \n" + awayTeamVarMap["name"].toString());
 			btnDataModel->SetDescriptionText("Season " + varMapFromJson["season"].toString());
-			btnDataModel->SetLowerDescriptionText("Venue: " + varMapFromJson["venue"].toJsonObject().toVariantMap()["name"].toString());
-			btnDataModel->SetThumbnailNameText("Game Time: " + varMapFromJson["dayNight"].toString());
+			btnDataModel->SetLowerDescriptionText("At: " + varMapFromJson["venue"].toJsonObject().toVariantMap()["name"].toString());
+			btnDataModel->SetBottomDescriptionText("Game Time: " + varMapFromJson["dayNight"].toString());
 
 			addButtonToMenu(btnDataModel);
 		}

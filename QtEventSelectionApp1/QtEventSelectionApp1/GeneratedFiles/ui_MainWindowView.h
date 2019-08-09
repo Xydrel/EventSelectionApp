@@ -16,7 +16,6 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,8 +24,7 @@ class Ui_MainWindowViewClass
 {
 public:
     QWidget *centralWidget;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
+    QWidget *layoutWidget;
     QHBoxLayout *eventBarHLayout;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -44,20 +42,15 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
         centralWidget->setSizePolicy(sizePolicy);
-        verticalLayoutWidget = new QWidget(centralWidget);
-        verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 80, 1921, 451));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        eventBarHLayout = new QHBoxLayout();
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 70, 1901, 451));
+        eventBarHLayout = new QHBoxLayout(layoutWidget);
         eventBarHLayout->setSpacing(4);
+        eventBarHLayout->setContentsMargins(11, 11, 11, 11);
         eventBarHLayout->setObjectName(QString::fromUtf8("eventBarHLayout"));
-
-        verticalLayout->addLayout(eventBarHLayout);
-
+        eventBarHLayout->setSizeConstraint(QLayout::SetNoConstraint);
+        eventBarHLayout->setContentsMargins(0, 0, 0, 0);
         MainWindowViewClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowViewClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));

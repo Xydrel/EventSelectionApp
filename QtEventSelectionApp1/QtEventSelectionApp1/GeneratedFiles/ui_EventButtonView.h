@@ -24,12 +24,12 @@ class Ui_EventButtonView
 public:
     QWidget *verticalLayoutWidget;
     QVBoxLayout *verticalLayout;
-    QLabel *titleHeader;
+    QLabel *eventHeader;
     QFrame *frame;
     QPushButton *pushButton;
     QLabel *description;
     QLabel *lowerDescription;
-    QLabel *thumbnailName;
+    QLabel *bottomDescription;
 
     void setupUi(QWidget *EventButtonView)
     {
@@ -44,22 +44,22 @@ public:
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        titleHeader = new QLabel(verticalLayoutWidget);
-        titleHeader->setObjectName(QString::fromUtf8("titleHeader"));
-        titleHeader->setEnabled(true);
+        eventHeader = new QLabel(verticalLayoutWidget);
+        eventHeader->setObjectName(QString::fromUtf8("eventHeader"));
+        eventHeader->setEnabled(true);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(titleHeader->sizePolicy().hasHeightForWidth());
-        titleHeader->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(eventHeader->sizePolicy().hasHeightForWidth());
+        eventHeader->setSizePolicy(sizePolicy);
         QFont font;
         font.setPointSize(8);
         font.setBold(false);
         font.setWeight(50);
-        titleHeader->setFont(font);
-        titleHeader->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        eventHeader->setFont(font);
+        eventHeader->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        verticalLayout->addWidget(titleHeader);
+        verticalLayout->addWidget(eventHeader);
 
         frame = new QFrame(verticalLayoutWidget);
         frame->setObjectName(QString::fromUtf8("frame"));
@@ -94,12 +94,12 @@ public:
 
         verticalLayout->addWidget(lowerDescription);
 
-        thumbnailName = new QLabel(verticalLayoutWidget);
-        thumbnailName->setObjectName(QString::fromUtf8("thumbnailName"));
-        sizePolicy.setHeightForWidth(thumbnailName->sizePolicy().hasHeightForWidth());
-        thumbnailName->setSizePolicy(sizePolicy);
+        bottomDescription = new QLabel(verticalLayoutWidget);
+        bottomDescription->setObjectName(QString::fromUtf8("bottomDescription"));
+        sizePolicy.setHeightForWidth(bottomDescription->sizePolicy().hasHeightForWidth());
+        bottomDescription->setSizePolicy(sizePolicy);
 
-        verticalLayout->addWidget(thumbnailName);
+        verticalLayout->addWidget(bottomDescription);
 
 
         retranslateUi(EventButtonView);
@@ -110,11 +110,11 @@ public:
     void retranslateUi(QWidget *EventButtonView)
     {
         EventButtonView->setWindowTitle(QCoreApplication::translate("EventButtonView", "EventButton", nullptr));
-        titleHeader->setText(QCoreApplication::translate("EventButtonView", "TextLabel", nullptr));
+        eventHeader->setText(QCoreApplication::translate("EventButtonView", "TextLabel", nullptr));
         pushButton->setText(QCoreApplication::translate("EventButtonView", "PushButton", nullptr));
         description->setText(QCoreApplication::translate("EventButtonView", "TextLabel", nullptr));
         lowerDescription->setText(QCoreApplication::translate("EventButtonView", "TextLabel", nullptr));
-        thumbnailName->setText(QCoreApplication::translate("EventButtonView", "TextLabel", nullptr));
+        bottomDescription->setText(QCoreApplication::translate("EventButtonView", "TextLabel", nullptr));
     } // retranslateUi
 
 };

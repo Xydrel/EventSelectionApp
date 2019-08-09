@@ -13,6 +13,16 @@ MainWindowView::MainWindowView(QWidget *parent)
 	_ui.setupUi(this);
 	_parent = parent;
 	_bkgrndImage = std::make_unique<BackgroundImageModel>(this->size());
+	
+	//todo: remove if no longer needed
+	/*_ui.verticalLayoutWidget->setGeometry(QRect(0, 80, 3840, 450));
+
+	_ui.verticalLayout->setSpacing(6);
+	_ui.verticalLayout->setContentsMargins(11, 11, 11, 11);
+	_ui.verticalLayout->setContentsMargins(0, 0, 0, 0);
+		
+	_ui.scrollArea->setWidgetResizable(true);
+	_ui.scrollAreaWidgetContents->setGeometry(QRect(0, 0, 3840, 450));*/
 
 	PopulateWindowElements();
 }
@@ -64,39 +74,25 @@ void MainWindowView::OnButtonGenerationCompleted()
 
 void MainWindowView::OnMoveSelectionLeft()
 {
-	QTime currentTime = QTime::currentTime();
-	_elapsedTime = currentTime.msecsSinceStartOfDay() - _elapsedTime;
-	if (_elapsedTime > _msDelayWait)
+	if (_currentButtonIndex > 0)
 	{
-		if (_currentButtonIndex > 0)
-		{
-			QEvent focusOutEvent = QEvent(QEvent::Type::FocusOut);
-			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusOutEvent);
-			_currentButtonIndex--;
-			QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
-			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusInEvent);
-		}
-		_elapsedTime = 1;
-
+		QEvent focusOutEvent = QEvent(QEvent::Type::FocusOut);
+		QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusOutEvent);
+		_currentButtonIndex--;
+		QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
+		QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusInEvent);
 	}
 }
 
 void MainWindowView::OnMoveSelectionRight()
 {	
-	QTime currentTime = QTime::currentTime();
-	_elapsedTime = currentTime.msecsSinceStartOfDay() - _elapsedTime;
-	if (_elapsedTime > _msDelayWait)
+	if (_currentButtonIndex < _eventButtonsList.size() - 1)
 	{
-		if (_currentButtonIndex < _eventButtonsList.size() - 1)
-		{
-			QEvent focusOutEvent = QEvent(QEvent::Type::FocusOut);
-			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusOutEvent);
-			_currentButtonIndex++;
-			QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
-			QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusInEvent);
-		}
-		_elapsedTime = 1;
-
+		QEvent focusOutEvent = QEvent(QEvent::Type::FocusOut);
+		QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusOutEvent);
+		_currentButtonIndex++;
+		QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
+		QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusInEvent);
 	}
 }
 
