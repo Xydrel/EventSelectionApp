@@ -96,6 +96,7 @@ void MainWindowView::setupButtonScrollArea()
 	_scrollArea = std::make_shared<QScrollArea>();
 	this->setCentralWidget(_scrollArea.get());
 	_scrollArea->setWidget(_ui.layoutWidget);
+	_scrollArea->setFrameShape(QFrame::NoFrame);
 	_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
