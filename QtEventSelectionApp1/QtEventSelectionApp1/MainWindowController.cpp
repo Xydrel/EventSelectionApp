@@ -31,9 +31,12 @@ void MainWindowController::Show()
 
 void MainWindowController::OnJsonParseComplete()
 {
-	//todo: making assumption that there's only one item in the list right now as I am sure there is, but this needs to be changed after testing
-	const QJsonArray& gamesArray = _requestsObjList->at(0)->GetJsonGamesArray();
-	generateButtonModelsFromGamesData(gamesArray);
+	// using a list in case I had time to do extra credit work to load adjacent dates
+	if (_requestsObjList->size() > 0 && _requestsObjList->size() < 2)
+	{
+		const QJsonArray& gamesArray = _requestsObjList->at(0)->GetJsonGamesArray();
+		generateButtonModelsFromGamesData(gamesArray);
+	}
 }
 
 void MainWindowController::bindMainWindowControllerCallbackEvents()
