@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "JsonRequestModel.h"
-#include "KeyboardInputController.h"
+#include "KeyboardInputComponent.h"
 
 #include <QNetworkAccessManager>
 #include <QList>
@@ -44,7 +44,7 @@ private:
 	//todo: ? is this needed?
 	std::unique_ptr<QList<std::shared_ptr<JsonRequestModel>>> _requestsObjList;
 	//? end
-	std::unique_ptr<KeyboardInputController> _keyboardInputCntrlr;
+	std::unique_ptr<KeyboardInputComponent> _keyboardInputComp;
 	std::shared_ptr<JsonRequestModel> _jsonRequestModel;
 
 };

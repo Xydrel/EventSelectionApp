@@ -6,16 +6,16 @@
 class QKeyEvent;
 class MainWindowView;
 
-class KeyboardInputController : public QObject
+class KeyboardInputComponent : public QObject
 {
 	Q_OBJECT
 
 public:
-	KeyboardInputController(std::shared_ptr<MainWindowView> mainWin, QObject* parent = Q_NULLPTR);
-	~KeyboardInputController() = default;
+	KeyboardInputComponent(std::shared_ptr<MainWindowView> mainWin, QObject* parent = Q_NULLPTR);
+	~KeyboardInputComponent() = default;
 
-	KeyboardInputController(const KeyboardInputController&) = delete;
-	KeyboardInputController& operator=(const KeyboardInputController&) = delete;
+	KeyboardInputComponent(const KeyboardInputComponent&) = delete;
+	KeyboardInputComponent& operator=(const KeyboardInputComponent&) = delete;
 
 private:
 	// QObject overrides

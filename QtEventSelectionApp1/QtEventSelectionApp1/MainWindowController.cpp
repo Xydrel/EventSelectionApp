@@ -9,11 +9,11 @@ MainWindowController::MainWindowController(std::shared_ptr<MainWindowView> mainW
 	: QObject(parent)
 {
 	_mainWinView = mainWin;
-	_keyboardInputCntrlr = std::make_unique<KeyboardInputController>(_mainWinView);
+	_keyboardInputComp = std::make_unique<KeyboardInputComponent>(_mainWinView);
 	_requestsObjList = std::make_unique<QList<std::shared_ptr<JsonRequestModel>>>();	
 	_jsonRequestModel = std::make_shared<JsonRequestModel>(this);
 
-	_mainWinView->installEventFilter(_keyboardInputCntrlr.get());
+	_mainWinView->installEventFilter(_keyboardInputComp.get());
 
 	bindMainWindowControllerCallbackEvents();
 

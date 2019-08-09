@@ -1,9 +1,9 @@
-#include "KeyboardInputController.h"
+#include "KeyboardInputComponent.h"
 #include "MainWindowView.h"
 
 #include <QApplication>
 
-KeyboardInputController::KeyboardInputController(std::shared_ptr<MainWindowView> mainWin, QObject* parent)
+KeyboardInputComponent::KeyboardInputComponent(std::shared_ptr<MainWindowView> mainWin, QObject* parent)
 	: QObject(parent)
 {
 	_mainWinView = mainWin;
@@ -11,7 +11,7 @@ KeyboardInputController::KeyboardInputController(std::shared_ptr<MainWindowView>
 	bindKeyboardInputSignalCallbacks();
 }
 
-bool KeyboardInputController::eventFilter(QObject* watched, QEvent* event)
+bool KeyboardInputComponent::eventFilter(QObject* watched, QEvent* event)
 {
 	QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(event);
 	/* note: for some reason which needs further investigation 
@@ -56,13 +56,13 @@ bool KeyboardInputController::eventFilter(QObject* watched, QEvent* event)
 	return false;
 }
 
-void KeyboardInputController::bindKeyboardInputSignalCallbacks()
+void KeyboardInputComponent::bindKeyboardInputSignalCallbacks()
 {
 	QObject::connect(this, SIGNAL(notifyLeftKeyPressedSignal()), _mainWinView.get(), SLOT(OnMoveSelectionLeft()));
 	QObject::connect(this, SIGNAL(notifyRightKeyPressedSignal()), _mainWinView.get(), SLOT(OnMoveSelectionRight()));
 }
 
-void KeyboardInputController::onEscapeKeyPressed()
+void KeyboardInputComponent::onEscapeKeyPressed()
 {
 		QApplication::quit();
 }

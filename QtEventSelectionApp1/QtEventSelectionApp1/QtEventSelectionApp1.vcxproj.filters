@@ -42,6 +42,9 @@
     <Filter Include="DataAccess">
       <UniqueIdentifier>{2fa5168b-b4d7-490a-bbcd-df354dc4fb48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{1152979b-304f-42c3-8ec9-50aa5b879aa4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -65,8 +68,8 @@
     <ClCompile Include="JsonRequestModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardInputController.cpp">
-      <Filter>Controllers</Filter>
+    <ClCompile Include="KeyboardInputComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,11 +103,11 @@
     <QtMoc Include="JsonRequestModel.h">
       <Filter>Models</Filter>
     </QtMoc>
-    <QtMoc Include="KeyboardInputController.h">
-      <Filter>Controllers</Filter>
-    </QtMoc>
     <QtMoc Include="MainWindowController.h">
       <Filter>Controllers</Filter>
+    </QtMoc>
+    <QtMoc Include="KeyboardInputComponent.h">
+      <Filter>Components</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
