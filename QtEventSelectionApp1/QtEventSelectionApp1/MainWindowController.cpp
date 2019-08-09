@@ -10,17 +10,14 @@ MainWindowController::MainWindowController(std::shared_ptr<MainWindowView> mainW
 {
 	_mainWinView = mainWin;
 	_keyboardInputComp = std::make_unique<KeyboardInputComponent>(_mainWinView);
-	_requestsObjList = std::make_unique<QList<std::shared_ptr<JsonRequestModel>>>();	
-	_jsonRequestModel = std::make_shared<JsonRequestModel>(this);
+	_requestsObjList = std::make_unique<QList<std::shared_ptr<HTTPRequestComponent>>>();	
+	_httpRequestComponent = std::make_shared<HTTPRequestComponent>(this);
 
 	_mainWinView->installEventFilter(_keyboardInputComp.get());
 
 	bindMainWindowControllerCallbackEvents();
 
 	QString formattedDate = getTodaysFormattedDate();
-	//todo: Stop hard coding the date value to dynamically collect todays date
-	formattedDate = "2019-08-08";
-	// end hard coded value
 	invokeJsonRequest(formattedDate);
 }
 
@@ -42,7 +39,7 @@ void MainWindowController::OnJsonParseComplete()
 void MainWindowController::bindMainWindowControllerCallbackEvents()
 {
 	QObject::connect(this, SIGNAL(notifyButtonGenerationCompleteSignal()), _mainWinView.get(), SLOT(OnButtonGenerationCompleted()));
-	QObject::connect(_jsonRequestModel.get(), SIGNAL(notifyJsonParseComplete()), this, SLOT(OnJsonParseComplete()));
+	QObject::connect(_httpRequestComponent.get(), SIGNAL(notifyJsonParseComplete()), this, SLOT(OnJsonParseComplete()));
 }
 
 //todo: Extra credit code for loading the adjacent dates json
@@ -80,8 +77,8 @@ const QString MainWindowController::getTodaysFormattedDate() const
 
 void MainWindowController::invokeJsonRequest(const QString& formattedDate)
 {
-	_jsonRequestModel->MakeUrlJsonRequest(formattedDate);
-	_requestsObjList->push_back(_jsonRequestModel);
+	_httpRequestComponent->MakeUrlJsonRequest(formattedDate);
+	_requestsObjList->push_back(_httpRequestComponent);
 }
 
 void MainWindowController::generateButtonModelsFromGamesData(const QJsonArray& gamesArr)

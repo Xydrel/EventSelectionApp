@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-#include "JsonRequestModel.h"
+#include "HTTPRequestComponent.h"
 #include "KeyboardInputComponent.h"
 
 #include <QNetworkAccessManager>
@@ -41,11 +41,9 @@ signals:
 
 private:
 	std::shared_ptr<MainWindowView> _mainWinView;
-	//todo: ? is this needed?
-	std::unique_ptr<QList<std::shared_ptr<JsonRequestModel>>> _requestsObjList;
-	//? end
+	std::unique_ptr<QList<std::shared_ptr<HTTPRequestComponent>>> _requestsObjList;
 	std::unique_ptr<KeyboardInputComponent> _keyboardInputComp;
-	std::shared_ptr<JsonRequestModel> _jsonRequestModel;
+	std::shared_ptr<HTTPRequestComponent> _httpRequestComponent;
 
 };
 

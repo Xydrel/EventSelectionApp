@@ -10,6 +10,7 @@
 class QSize;
 class QPalette;
 class EventButtonView;
+class QScrollArea;
 
 class MainWindowView : public QMainWindow
 {
@@ -32,13 +33,16 @@ public slots:
 	void OnMoveSelectionRight();
 
 private:
+	void setupButtonScrollArea();
 	void loadBackgroundImage();
+	void resizeHorizontalLayoutToFitButtons();
 
 
 private:
 	Ui::MainWindowViewClass _ui;
 	QWidget* _parent;
 	std::unique_ptr<BackgroundImageModel> _bkgrndImage;
+	std::shared_ptr<QScrollArea> _scrollArea;
 	QPalette _palette;
 	QList<std::shared_ptr<EventButtonView>> _eventButtonsList;
 	qint32 _currentButtonIndex;

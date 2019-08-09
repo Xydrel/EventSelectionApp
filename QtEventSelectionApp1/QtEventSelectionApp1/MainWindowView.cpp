@@ -1,6 +1,8 @@
 #include "MainWindowView.h"
 #include "EventButtonModel.h"
 
+#include <QScrollArea>
+#include <QScrollBar>
 #include <QSize.h>
 #include <QPalette.h>
 #include <QPixmap.h>
@@ -12,17 +14,9 @@ MainWindowView::MainWindowView(QWidget *parent)
 {
 	_ui.setupUi(this);
 	_parent = parent;
-	_bkgrndImage = std::make_unique<BackgroundImageModel>(this->size());
-	
-	//todo: remove if no longer needed
-	/*_ui.verticalLayoutWidget->setGeometry(QRect(0, 80, 3840, 450));
+	_bkgrndImage = std::make_unique<BackgroundImageModel>(this->size());	
 
-	_ui.verticalLayout->setSpacing(6);
-	_ui.verticalLayout->setContentsMargins(11, 11, 11, 11);
-	_ui.verticalLayout->setContentsMargins(0, 0, 0, 0);
-		
-	_ui.scrollArea->setWidgetResizable(true);
-	_ui.scrollAreaWidgetContents->setGeometry(QRect(0, 0, 3840, 450));*/
+	setupButtonScrollArea();
 
 	PopulateWindowElements();
 }
@@ -60,12 +54,9 @@ void MainWindowView::AddNewButtonToMenu(const std::shared_ptr<EventButtonModel> 
 
 void MainWindowView::OnButtonGenerationCompleted()
 {
-	// to stylize the starting view the index is starting off center to the left
-	qint32 buttonStartIndex = 1;
-	if (_eventButtonsList.size() > 2)
-	{
-		buttonStartIndex = (_eventButtonsList.size() / 2 - 2);
-	}
+	qint32 buttonStartIndex = 0;
+
+	resizeHorizontalLayoutToFitButtons();
 
 	_currentButtonIndex = buttonStartIndex;
 	QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
@@ -81,6 +72,8 @@ void MainWindowView::OnMoveSelectionLeft()
 		_currentButtonIndex--;
 		QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
 		QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusInEvent);
+
+		_scrollArea->ensureWidgetVisible(_eventButtonsList[_currentButtonIndex].get());
 	}
 }
 
@@ -93,7 +86,18 @@ void MainWindowView::OnMoveSelectionRight()
 		_currentButtonIndex++;
 		QEvent focusInEvent = QEvent(QEvent::Type::FocusIn);
 		QApplication::sendEvent(_eventButtonsList[_currentButtonIndex]->GetVerticalLayoutWidget(), &focusInEvent);
+
+		_scrollArea->ensureWidgetVisible(_eventButtonsList[_currentButtonIndex].get());
 	}
+}
+
+void MainWindowView::setupButtonScrollArea()
+{
+	_scrollArea = std::make_shared<QScrollArea>();
+	this->setCentralWidget(_scrollArea.get());
+	_scrollArea->setWidget(_ui.layoutWidget);
+	_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 void MainWindowView::loadBackgroundImage()
@@ -102,4 +106,10 @@ void MainWindowView::loadBackgroundImage()
 	pixmap = pixmap.scaled(this->size(), Qt::IgnoreAspectRatio);
 	_palette.setBrush(QPalette::Background, pixmap);
 	this->setPalette(_palette);
+}
+
+void MainWindowView::resizeHorizontalLayoutToFitButtons()
+{
+	qint32 eventBarButtonspacingSize = 220;
+	_ui.layoutWidget->setFixedWidth(_eventButtonsList.size() * eventBarButtonspacingSize);
 }
