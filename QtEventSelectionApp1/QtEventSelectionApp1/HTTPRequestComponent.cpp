@@ -1,4 +1,4 @@
-#include "JsonRequestModel.h"
+#include "HTTPRequestComponent.h"
 #include "MainWindowController.h"
 
 #include <QNetworkRequest>
@@ -8,7 +8,7 @@
 #include <QJsonObject>
 #include <QMessageBox>
 
-JsonRequestModel::JsonRequestModel(MainWindowController* mainWinCntrl, QObject* parent)
+HTTPRequestComponent::HTTPRequestComponent(MainWindowController* mainWinCntrl, QObject* parent)
 	: QObject(parent)
 {
 	_mainWindController = mainWinCntrl;
@@ -17,7 +17,7 @@ JsonRequestModel::JsonRequestModel(MainWindowController* mainWinCntrl, QObject* 
 	bindJsonRequestModelCallbackEvents();
 }
 
-JsonRequestModel::~JsonRequestModel()
+HTTPRequestComponent::~HTTPRequestComponent()
 {
 	if (_mainWindController != nullptr)
 	{
@@ -25,7 +25,7 @@ JsonRequestModel::~JsonRequestModel()
 	}
 }
 
-void JsonRequestModel::MakeUrlJsonRequest(const QString& date)
+void HTTPRequestComponent::MakeUrlJsonRequest(const QString& date)
 {
 	QUrl requestUrl = QUrl("http://statsapi.mlb.com/api/v1/schedule", QUrl::StrictMode);
 	QUrlQuery query;
@@ -51,18 +51,18 @@ void JsonRequestModel::MakeUrlJsonRequest(const QString& date)
 	_netAccessMngr->clearAccessCache();
 }
 
-const QJsonArray& JsonRequestModel::GetJsonGamesArray()
+const QJsonArray& HTTPRequestComponent::GetJsonGamesArray()
 {
 	return _gamesArray;
 }
 
-void JsonRequestModel::bindJsonRequestModelCallbackEvents()
+void HTTPRequestComponent::bindJsonRequestModelCallbackEvents()
 {
 		QObject::connect(_netAccessMngr.get(), SIGNAL(finished(QNetworkReply*)), this, SLOT(onJsonRequestFinnished(QNetworkReply*)));
 		QObject::connect(this, SIGNAL(notifyJsonParseComplete()), _mainWindController, SLOT(onJsonRequestFinnished()));
 }
 
-void JsonRequestModel::onJsonRequestFinnished(QNetworkReply* reply)
+void HTTPRequestComponent::onJsonRequestFinnished(QNetworkReply* reply)
 {
 	qDebug() << "Entered into parseNetworkRequestReply callback";
 

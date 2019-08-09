@@ -9,16 +9,16 @@ class MainWindowController;
 class QNetworkReply;
 class QJsonArray;
 
-class JsonRequestModel : public QObject
+class HTTPRequestComponent : public QObject
 {
 	Q_OBJECT
 
 public:
-	JsonRequestModel(MainWindowController* mainWinCntrl, QObject* parent = Q_NULLPTR);
-	~JsonRequestModel();
+	HTTPRequestComponent(MainWindowController* mainWinCntrl, QObject* parent = Q_NULLPTR);
+	~HTTPRequestComponent();
 
-	JsonRequestModel(const JsonRequestModel&) = delete;
-	JsonRequestModel& operator=(const JsonRequestModel&) = delete;
+	HTTPRequestComponent(const HTTPRequestComponent&) = delete;
+	HTTPRequestComponent& operator=(const HTTPRequestComponent&) = delete;
 
 	// expected date format: yyyy-mm-dd
 	void MakeUrlJsonRequest(const QString& date);

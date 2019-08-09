@@ -65,10 +65,10 @@
     <ClCompile Include="BackgroundImageModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
-    <ClCompile Include="JsonRequestModel.cpp">
-      <Filter>Models</Filter>
-    </ClCompile>
     <ClCompile Include="KeyboardInputComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HTTPRequestComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -100,13 +100,13 @@
     <QtMoc Include="EventButtonView.h">
       <Filter>Views</Filter>
     </QtMoc>
-    <QtMoc Include="JsonRequestModel.h">
-      <Filter>Models</Filter>
-    </QtMoc>
     <QtMoc Include="MainWindowController.h">
       <Filter>Controllers</Filter>
     </QtMoc>
     <QtMoc Include="KeyboardInputComponent.h">
+      <Filter>Components</Filter>
+    </QtMoc>
+    <QtMoc Include="HTTPRequestComponent.h">
       <Filter>Components</Filter>
     </QtMoc>
   </ItemGroup>
