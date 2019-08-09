@@ -14,10 +14,7 @@ KeyboardInputComponent::KeyboardInputComponent(std::shared_ptr<MainWindowView> m
 bool KeyboardInputComponent::eventFilter(QObject* watched, QEvent* event)
 {
 	QKeyEvent* keyEvent = dynamic_cast<QKeyEvent*>(event);
-	/* note: for some reason which needs further investigation 
-	 * KeyPress events do not apply to arrow keys. If events are 
-	 * not being filtered by KeyPress events double movement 
-	 * navigation across event menu buttons. */
+	/* note: Not using Arrow keys as they are events related to scrollbar behavior */
 	if (keyEvent != nullptr && keyEvent->type() == QEvent::Type::KeyPress)
 	{
 		switch (keyEvent->key())
@@ -27,18 +24,6 @@ bool KeyboardInputComponent::eventFilter(QObject* watched, QEvent* event)
 				onEscapeKeyPressed();
 				return false;
 			}
-			//todo: investigate further
-			case Qt::Key_Left:
-			{
-				notifyLeftKeyPressedSignal();
-				return false;
-			}			
-			case Qt::Key_Right:
-			{
-				notifyRightKeyPressedSignal();
-				return false;
-			}
-			//todo: end investigate further
 			case Qt::Key_S:
 			{
 				notifyLeftKeyPressedSignal();
